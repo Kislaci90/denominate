@@ -32,7 +32,7 @@ export const translate: {
     heroTitle: {
         en: 'Denomination Calculator',
         de: 'Stückelungsrechner',
-        hu: 'Felvaltom',
+        hu: 'Felváltom!',
     },
     heroSubtitle: {
         en: 'Instantly break down any amount into the optimal set of bills and coins. Fast, customizable, and accessible for EUR, USD, and HUF.',
@@ -112,8 +112,8 @@ export const translate: {
         de: (amt: string | number, sym: string) => `${amt} ${sym} kann aufgeteilt werden in:`,
         hu: (amt: string | number, sym: string) => `${amt} ${sym} felbontható a következőkre:`,
     },
-    totalBills: {en: 'Total bills', de: 'Anzahl Scheine', hu: 'Bankjegyek összesen'},
-    totalCoins: {en: 'Total coins', de: 'Anzahl Münzen', hu: 'Érmék összesen'},
+    totalBills: {en: 'Total bills', de: 'Anzahl Scheine', hu: 'Ősszesen'},
+    totalCoins: {en: 'Total coins', de: 'Anzahl Münzen', hu: 'Ősszesen'},
     history: {en: 'History', de: 'Verlauf', hu: 'Előzmények'},
     clearHistory: {en: 'Clear', de: 'Löschen', hu: 'Törlés'},
     noBreakdown: {en: 'No breakdown', de: 'Keine Aufteilung', hu: 'Nincs bontás'},

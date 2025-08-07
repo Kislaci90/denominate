@@ -4,25 +4,21 @@ interface CoinIconProps {
   value: string | number;
   width?: number;
   height?: number;
-  className?: string;
+  color: string;
   style?: React.CSSProperties;
-  ariaLabel?: string;
 }
 
-const CoinIcon: React.FC<CoinIconProps> = ({ value, width = 28, height = 28, className, style, ariaLabel }) => (
+const CoinIcon: React.FC<CoinIconProps> = ({ value, width = 28, height = 28, style, color }) => (
   <svg
     width={width}
     height={height}
     viewBox="0 0 28 28"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    className={className}
     style={style}
-    aria-label={ariaLabel || value.toString()}
     role="img"
   >
-    <circle cx="14" cy="14" r="13" fill="#FFB300" stroke="#FF6F91" strokeWidth="2" />
-    {/* Removed inner circle */}
+    <circle cx="14" cy="14" r="13" fill={color} stroke="#3F3D56" strokeWidth="0.5" />
     <text
       x="14"
       y="18"
@@ -42,4 +38,4 @@ const CoinIcon: React.FC<CoinIconProps> = ({ value, width = 28, height = 28, cla
   </svg>
 );
 
-export default CoinIcon; 
+export default CoinIcon;

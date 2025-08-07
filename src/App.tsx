@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Box, useMediaQuery} from '@mui/material';
+import {Box, Typography, useMediaQuery} from '@mui/material';
 import EuroIcon from '@mui/icons-material/Euro';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
@@ -7,13 +7,11 @@ import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import Cookies from 'js-cookie';
 import './App.css';
 import TopBar from './components/TopBar';
-import HistoryList from "./components/HistoryList";
-import Customize from "./components/Customize";
-import Hero from "./components/Hero";
 import AmountInput from "./components/AmountInput";
 import DenominateButton from "./components/DenominateButton";
 import ResultArea from "./components/Result";
-import {translate} from './i18n'; // Import your translation function
+import {translate} from './i18n';
+import HistoryList from "./components/HistoryList"; // Import your translation function
 
 const currencies = [
     {code: 'HUF', label: 'Forint', symbol: 'Ft', icon: <AccountBalanceWalletIcon/>, flag: '🇭🇺'},
@@ -28,22 +26,47 @@ const languages = [
     {code: 'de', label: 'Deutsch'},
 ];
 
+type Denomination = {
+    value: number;
+    color: string;
+}
+
 // Denominations for each currency
-const HUF_DENOMINATIONS = [20000, 10000, 5000, 2000, 1000, 500, 200, 100, 50, 20, 10, 5];
-const EUR_DENOMINATIONS = [500, 200, 100, 50, 20, 10, 5, 2, 1, 0.5, 0.2, 0.1, 0.05, 0.02, 0.01];
-const USD_DENOMINATIONS = [100, 50, 20, 10, 5, 2, 1, 0.5, 0.25, 0.1, 0.05, 0.01];
+const HUF_DENOMINATIONS: Denomination[] = [{value: 20000, color: '#9EC2B1'}, {
+    value: 10000,
+    color: '#B4C69A'
+}, {value: 5000, color: '#D1A69A'}, {value: 2000, color: '#C9B6D6'}, {value: 1000, color: '#A6D3E9'}, {
+    value: 500,
+    color: '#F5D0A9'
+}, {value: 200, color: '#D5B87A'}, {value: 100, color: '#D5B87A'}, {value: 50, color: '#C9B037'}, {
+    value: 20,
+    color: '#CCCCCC'
+}, {value: 10, color: '#999999'}, {value: 5, color: '#A97142'}];
+const EUR_DENOMINATIONS: Denomination[] = [{value: 500, color: '#B4C69A'}, {value: 200, color: '#B4C69A'}, {
+    value: 100,
+    color: '#B4C69A'
+}, {value: 50, color: '#B4C69A'}, {value: 20, color: '#B4C69A'}, {value: 10, color: '#B4C69A'}, {
+    value: 5,
+    color: '#B4C69A'
+}, {value: 2, color: '#B4C69A'}, {value: 1, color: '#B4C69A'}, {value: 0.5, color: '#B4C69A'}, {
+    value: 0.2,
+    color: '#B4C69A'
+}, {value: 0.1, color: '#B4C69A'}, {value: 0.05, color: '#B4C69A'}, {value: 0.02, color: '#B4C69A'}, {
+    value: 0.01,
+    color: '#B4C69A'
+}];
+//const USD_DENOMINATIONS : Denomination[] = [{value:100, color: '#B4C69A'}, {value:50, color: '#B4C69A'}, {value:20, color: '#B4C69A'}, {value:10, color: '#B4C69A'}, {value:5, color: '#B4C69A'}, {value:10000, color: '#B4C69A'}, 1, 0.5, 0.25, 0.1, 0.05, 0.01];
 const theme = createTheme({
     palette: {
         primary: {
-            main: '#6C63FF', // Blue-violet
-            contrastText: '#fff',
+            main: '#2E7D32', // zöldes, stabil (pl. gombokhoz)
         },
         secondary: {
-            main: '#FF6F91', // Soft pink
+            main: '#E57373', // kék, jól illik az 1000 Ft-hoz
         },
         background: {
-            default: '#F8F9FB', // Off-white
-            paper: '#fff',
+            default: '#F5F5F5',
+            paper: '#FFFFFF',
         },
         info: {
             main: '#6C63FF',
@@ -53,7 +76,7 @@ const theme = createTheme({
         MuiAppBar: {
             styleOverrides: {
                 colorPrimary: {
-                    backgroundColor: '#6C63FF',
+                    backgroundColor: '#2E7D32',
                 },
             },
         },
@@ -76,42 +99,43 @@ const getDenominationsForCurrency = (cur: string) => {
             return HUF_DENOMINATIONS;
         case 'EUR':
             return EUR_DENOMINATIONS;
-        case 'USD':
-            return USD_DENOMINATIONS;
+        // case 'USD':
+        //     return USD_DENOMINATIONS;
         default:
             return [];
     }
 };
 
-function denominateFiltered(amount: number, currency: string, enabled: number[]): {
+function denominateFiltered(amount: number, currency: string, enabled: Denomination[]): {
     value: number;
     count: number;
-    isCoin: boolean
+    isCoin: boolean;
+    color: string;
 }[] {
-    let denominations: number[] = getDenominationsForCurrency(currency).filter((d: number) => enabled.includes(d));
+    let denominations: Denomination[] = getDenominationsForCurrency(currency).filter((d: Denomination) => enabled.includes(d));
     let coinStartIdx = 0;
     switch (currency) {
         case 'EUR':
-            coinStartIdx = denominations.findIndex(d => d < 5);
+            coinStartIdx = denominations.findIndex(d => d.value < 5);
             break;
         case 'USD':
-            coinStartIdx = denominations.findIndex(d => d < 1);
+            coinStartIdx = denominations.findIndex(d => d.value < 1);
             break;
         case 'HUF':
-            coinStartIdx = denominations.findIndex(d => d <= 200);
+            coinStartIdx = denominations.findIndex(d => d.value <= 200);
             break;
         default:
             return [];
     }
     let remaining = currency === 'EUR' || currency === 'USD' ? Math.round(amount * 100) : amount;
-    const result: { value: number; count: number; isCoin: boolean }[] = [];
+    const result: { value: number; count: number; isCoin: boolean, color: string }[] = [];
     for (let i = 0; i < denominations.length; i++) {
-        const denom = denominations[i];
-        const denomValue = (currency === 'EUR' || currency === 'USD') ? Math.round(denom * 100) : denom;
-        const count = Math.floor(remaining / denomValue);
+        const denomination = denominations[i];
+        const denominationValue = (currency === 'EUR' || currency === 'USD') ? Math.round(denomination.value * 100) : denomination.value;
+        const count = Math.floor(remaining / denominationValue);
         if (count > 0) {
-            result.push({value: denom, count, isCoin: i >= coinStartIdx});
-            remaining -= count * denomValue;
+            result.push({value: denomination.value, count, isCoin: i >= coinStartIdx, color: denomination.color});
+            remaining -= count * denominationValue;
         }
     }
     return result;
@@ -119,15 +143,13 @@ function denominateFiltered(amount: number, currency: string, enabled: number[])
 
 function App() {
     const [amount, setAmount] = useState('');
-    const [currency, setCurrency] = useState('EUR');
-    const [language, setLanguage] = useState('en');
-    const [customizeOpen, setCustomizeOpen] = useState(false);
-    const [enabledDenoms, setEnabledDenoms] = useState<number[]>([]);
+    const [currency, setCurrency] = useState('HUF');
+    const [language, setLanguage] = useState('hu');
     const [history, setHistory] = useState<any[]>([]);
-    const [pendingAmount, setPendingAmount] = useState('');
-    const [pendingCurrency, setPendingCurrency] = useState('EUR');
+    const [enabledDenoms, setEnabledDenoms] = useState<Denomination[]>([]);
+    const [pendingAmount, setPendingAmount] = useState('0');
+    const [pendingCurrency, setPendingCurrency] = useState('HUF');
     const amountInputRef = useRef<HTMLInputElement>(null);
-    const [resultView, setResultView] = useState<'grid' | 'table'>('grid');
 
     const isMobile = useMediaQuery('(max-width:600px)');
 
@@ -135,7 +157,7 @@ function App() {
     function formatAmountInput(value: string, lang: string) {
         // Remove all non-digit characters
         const digits = value.replace(/\D/g, '');
-        if (!digits) return '';
+        if (!digits) return '0';
         return new Intl.NumberFormat(lang === 'de' ? 'de-DE' : 'en-US').format(Number(digits));
     }
 
@@ -145,13 +167,10 @@ function App() {
         setPendingAmount(formatAmountInput(raw, language));
     }
 
-    function handleCurrencyChange(e: any) {
-        setPendingCurrency(e.target.value as string);
-    }
-
     function handleDenominate() {
         setAmount(pendingAmount);
         setCurrency(pendingCurrency);
+        amountInputRef.current?.select();
     }
 
     function handleInputKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
@@ -163,7 +182,7 @@ function App() {
     // Parse and denominate
     const parsedAmount = parseInt(amount.replace(/\D/g, ''), 10);
     const isValid = !isNaN(parsedAmount) && parsedAmount > 0;
-    let breakdown: { value: number; count: number; isCoin: boolean }[] = [];
+    let breakdown: { value: number; count: number; isCoin: boolean, color: string }[] = [];
     if (isValid) {
         breakdown = denominateFiltered(parsedAmount, currency, enabledDenoms);
     }
@@ -171,27 +190,23 @@ function App() {
 
     // Format amount for visualization
     const formattedAmount = amount
-        ? new Intl.NumberFormat(language === 'de' ? 'de-DE' : 'en-US').format(Number(amount.replace(/\D/g, '')))
+        ? new Intl.NumberFormat('hu-HU').format(Number(amount.replace(/\D/g, '')))
         : '';
-
-    // Open/close dialog
-    const handleOpenCustomize = () => setCustomizeOpen(true);
-    const handleCloseCustomize = () => setCustomizeOpen(false);
 
     // Load enabled denominations from cookies or default (all enabled)
     useEffect(() => {
         const cookieKey = `denoms_${currency}`;
         const cookie = Cookies.get(cookieKey);
-        let denoms: number[] = [];
+        let denominations: Denomination[] = [];
         switch (currency) {
             case 'EUR':
-                denoms = EUR_DENOMINATIONS;
+                denominations = EUR_DENOMINATIONS;
                 break;
-            case 'USD':
-                denoms = USD_DENOMINATIONS;
-                break;
+            // case 'USD':
+            //     denominations = USD_DENOMINATIONS;
+            //     break;
             case 'HUF':
-                denoms = HUF_DENOMINATIONS;
+                denominations = HUF_DENOMINATIONS;
                 break;
         }
         if (cookie) {
@@ -204,14 +219,14 @@ function App() {
             } catch {
             }
         }
-        setEnabledDenoms(denoms);
+        setEnabledDenoms(denominations);
     }, [currency]);
 
     // Save enabled denominations to cookies
-    const saveEnabledDenoms = (newDenoms: number[]) => {
-        setEnabledDenoms(newDenoms);
-        Cookies.set(`denoms_${currency}`, JSON.stringify(newDenoms), {expires: 365});
-    };
+    // const saveEnabledDenoms = (newDenoms: number[]) => {
+    //     setEnabledDenoms(newDenoms);
+    //     Cookies.set(`denoms_${currency}`, JSON.stringify(newDenoms), {expires: 365});
+    // };
 
     // Load history from cookies on mount
     useEffect(() => {
@@ -249,7 +264,7 @@ function App() {
     const pendingParsedAmount = parseInt((pendingAmount || amount).replace(/\D/g, ''), 10);
     const pendingIsValid = !isNaN(pendingParsedAmount) && pendingParsedAmount > 0;
 
-    const filteredDenominations = getDenominationsForCurrency(currency).filter((d: number) => enabledDenoms.includes(d));
+    const filteredDenominations = getDenominationsForCurrency(currency).filter((d: Denomination) => enabledDenoms.includes(d));
 
     // Determine if any bill or coin is disabled for the current currency
     const chipCurrency = pendingCurrency || currency;
@@ -267,11 +282,17 @@ function App() {
 
             <div className="landing-hero fade-in">
 
-                <div className="landing-title">
+                <Typography color={"primary"} variant="h2" component="h1" align="center" sx={{mb: 2}}>
                     {translate.heroTitle[language]}
-                </div>
+                </Typography>
 
-                {!isMobile && <Hero translate={translate} language={language}/>}
+                <Box className="landing-feature">
+                    <Typography color="#666">
+                        Add meg az összeget, mi pedig megmondjuk, mennyi bankjegyre és érmére van szükséged!
+                        A <strong>Felvoltam</strong> gyors, praktikus megoldás készpénzkezeléshez vagy csak
+                        kíváncsiságból.
+                    </Typography>
+                </Box>
 
                 <Box sx={{
                     display: 'flex',
@@ -285,17 +306,13 @@ function App() {
                 }}>
                     <AmountInput
                         value={pendingAmount || amount}
-                        currency={currency}
-                        pendingCurrency={pendingCurrency}
-                        currencies={currencies}
-                        t={translate}
+                        translate={translate}
                         language={language}
                         onAmountChange={handleAmountChange}
-                        onCurrencyChange={handleCurrencyChange}
                         onKeyDown={handleInputKeyDown}
                         onClear={() => {
-                            setPendingAmount('');
-                            setAmount('');
+                            setPendingAmount('0');
+                            setAmount('0');
                         }}
                         inputRef={amountInputRef}
                         isValid={pendingIsValid}
@@ -308,44 +325,29 @@ function App() {
                     />
                 </Box>
 
-                <Customize
-                    t={translate}
-                    language={language}
-                    anyDisabled={anyDisabled}
-                    pendingCurrency={pendingCurrency}
-                    currency={currency}
-                    enabledDenoms={enabledDenoms}
-                    saveEnabledDenoms={saveEnabledDenoms}
-                    getDenominationsForCurrency={getDenominationsForCurrency}
-                    currencies={currencies}
-                />
-
             </div>
 
             <ResultArea
                 isValid={isValid}
-                resultView={resultView}
-                setResultView={val => setResultView(val)}
                 breakdown={breakdown}
                 currency={currency}
                 selectedCurrency={selectedCurrency}
                 formattedAmount={formattedAmount}
-                t={translate}
+                translate={translate}
                 language={language}
             />
 
-            {history.length > 0 && (
-                <HistoryList
-                    history={history}
-                    t={translate}
-                    language={language}
-                    setHistory={setHistory}
-                    setPendingAmount={setPendingAmount}
-                    setPendingCurrency={setPendingCurrency}
-                    amountInputRef={amountInputRef}
-                    formatAmountInput={formatAmountInput}
-                />
-            )}
+            <HistoryList
+                history={history}
+                translate={translate}
+                language={language}
+                setHistory={setHistory}
+                setPendingAmount={setPendingAmount}
+                setPendingCurrency={setPendingCurrency}
+                amountInputRef={amountInputRef}
+                formatAmountInput={formatAmountInput}
+            />
+
             <div className="footer">© {new Date().getFullYear()} Denomination Calculator &middot; Made with ❤️</div>
         </ThemeProvider>
     );

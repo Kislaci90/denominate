@@ -26,7 +26,7 @@ type HistoryEntry = {
 
 type Props = {
     history: HistoryEntry[];
-    t: any;
+    translate: any;
     language: string;
     setHistory: (h: HistoryEntry[]) => void;
     setPendingAmount: (amt: string) => void;
@@ -37,7 +37,7 @@ type Props = {
 
 const HistoryList: React.FC<Props> = ({
                                           history,
-                                          t,
+                                          translate,
                                           language,
                                           setHistory,
                                           setPendingAmount,
@@ -45,20 +45,20 @@ const HistoryList: React.FC<Props> = ({
                                           amountInputRef,
                                           formatAmountInput,
                                       }) => (
-    <Container maxWidth="sm" sx={{ mt: 2 }}>
+    <Container maxWidth="md" sx={{ mt: 2 }}>
         <Card elevation={8} sx={{ borderRadius: 4, p: { xs: 1.5, sm: 3 }, boxShadow: '0 8px 32px 0 rgba(108,99,255,0.10)' }}>
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1 }}>
                 <ListSubheader component="div" sx={{ fontWeight: 700, fontSize: '1.13rem', color: 'primary.main', bgcolor: 'transparent', px: 0, py: 0 }}>
-                    {t.history[language]}
+                    {translate.history[language]}
                 </ListSubheader>
                 <Button size="small" color="secondary" variant="outlined" onClick={() => { setHistory([]); Cookies.remove('denom_history'); }} sx={{ ml: 2, textTransform: 'none', fontWeight: 600, borderRadius: 2, px: 2, py: 0.5 }}>
-                    {t.clearHistory[language]}
+                    {translate.clearHistory[language]}
                 </Button>
             </Box>
             <Divider sx={{ mb: 1.5, borderColor: '#e0e7ff' }} />
             <List sx={{ p: 0 }}>
                 {history.map((h, idx) => (
-                    <Tooltip title={t.loadFromHistory[language](h.formatted, h.symbol || '')} arrow key={idx}>
+                    <Tooltip title={translate.loadFromHistory[language](h.formatted, h.symbol || '')} arrow key={idx}>
                         <ListItem
                             alignItems="flex-start"
                             sx={{
@@ -89,7 +89,7 @@ const HistoryList: React.FC<Props> = ({
                                 }, 100);
                             }}
                             tabIndex={0}
-                            aria-label={t.loadFromHistory[language](h.formatted, h.symbol || '')}
+                            aria-label={translate.loadFromHistory[language](h.formatted, h.symbol || '')}
                         >
                             <ListItemIcon sx={{ minWidth: 36 }}>
                                 <span style={{ fontSize: 22 }}>{h.flag}</span>
@@ -103,7 +103,7 @@ const HistoryList: React.FC<Props> = ({
                     {h.breakdown.slice(0, 4).map((item: any, i: number) => `${item.count} × ${item.value} ${h.symbol}`).join(', ')}
                                         {h.breakdown.length > 4 ? '...' : ''}
                   </span>
-                                ) : <span style={{ color: '#aaa', fontSize: '0.98em' }}>{t.noBreakdown[language]}</span>}
+                                ) : <span style={{ color: '#aaa', fontSize: '0.98em' }}>{translate.noBreakdown[language]}</span>}
                             />
                         </ListItem>
                     </Tooltip>

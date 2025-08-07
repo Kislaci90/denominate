@@ -1,5 +1,5 @@
 import React from 'react';
-import {AppBar, Box, FormControl, MenuItem, Select, Toolbar, Typography} from '@mui/material';
+import {AppBar, Box, FormControl, Icon, MenuItem, Select, Toolbar, Typography} from '@mui/material';
 import LanguageIcon from '@mui/icons-material/Language';
 import CalculateIcon from '@mui/icons-material/Calculate';
 
@@ -13,25 +13,17 @@ type Props = {
 
 const TopBar: React.FC<Props> = ({ language, setLanguage, languages, t }) => (
     <AppBar position="static" elevation={2} sx={{
-        background: 'linear-gradient(135deg, #6C63FF 0%, #5A52E5 100%)',
+        background: 'linear-gradient(135deg, #2E7D32 0%, #2E7D32 100%)',
         borderBottom: '1px solid rgba(255,255,255,0.1)'
     }}>
         <Toolbar sx={{ justifyContent: 'space-between', px: { xs: 2, sm: 3 } }}>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <CalculateIcon sx={{ fontSize: 28, color: 'white' }} />
                 <Typography variant="h6" component="div" sx={{
                     fontWeight: 700,
                     letterSpacing: 0.5,
                     display: { xs: 'none', sm: 'block' }
                 }}>
                     {t.heroTitle[language]}
-                </Typography>
-                <Typography variant="h6" component="div" sx={{
-                    fontWeight: 700,
-                    letterSpacing: 0.5,
-                    display: { xs: 'block', sm: 'none' }
-                }}>
-                    DenomCalc
                 </Typography>
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>

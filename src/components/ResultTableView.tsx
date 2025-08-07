@@ -1,10 +1,11 @@
 import React from 'react';
-import {Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from '@mui/material';
+import {Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from '@mui/material';
 import BillIcon from './BillIcon';
 import CoinIcon from './CoinIcon';
 
 type BreakdownItem = {
     value: number;
+    color: string;
     count: number;
     isCoin: boolean;
 };
@@ -18,45 +19,28 @@ type Props = {
     currency: string;
     selectedCurrency?: Currency | undefined;
     formattedAmount: string;
-    t: any;
+    translate: any;
     language: string;
 };
 
 const ResultTableView: React.FC<Props> = ({
                                               breakdown,
-                                              currency,
                                               selectedCurrency,
                                               formattedAmount,
-                                              t,
+                                              translate,
                                               language
                                           }) => (
     <>
+       <Box className={"result-area-summary"}>
+
+       </Box>
         <div className="result-area-summary">
-            <span className="result-amount-value">{formattedAmount}</span> {selectedCurrency?.symbol} {t.resultSummary[language]('', selectedCurrency?.symbol)}
+            <span className="result-amount-value">{formattedAmount}</span> {translate.resultSummary[language]('', selectedCurrency?.symbol)}
         </div>
         <div className="result-area-divider"/>
         <TableContainer component={Paper}
                         sx={{ borderRadius: 3, boxShadow: 0, mb: 2, overflow: 'hidden' }}>
-            <Table size="small" aria-label="denomination table">
-                <TableHead>
-                    <TableRow sx={{ background: '#f8f9fb' }}>
-                        <TableCell sx={{
-                            fontWeight: 700,
-                            fontSize: '1.08em',
-                            borderBottom: '2px solid #e0e7ff'
-                        }}>{t.bills[language]} / {t.coins[language]}</TableCell>
-                        <TableCell align="right" sx={{
-                            fontWeight: 700,
-                            fontSize: '1.08em',
-                            borderBottom: '2px solid #e0e7ff'
-                        }}>{t.denominate[language]}</TableCell>
-                        <TableCell align="right" sx={{
-                            fontWeight: 700,
-                            fontSize: '1.08em',
-                            borderBottom: '2px solid #e0e7ff'
-                        }}>{t.totalBills[language]}</TableCell>
-                    </TableRow>
-                </TableHead>
+            <Table size="medium" aria-label="denomination table">
                 <TableBody>
                     {/* Bills */}
                     {breakdown.filter(item => !item.isCoin).length > 0 && (
@@ -69,7 +53,7 @@ const ResultTableView: React.FC<Props> = ({
                                 borderTop: '2px solid #e0e7ff',
                                 borderBottom: '1.5px solid #e0e7ff',
                                 borderRadius: '12px 12px 0 0'
-                            }}>{t.bills[language]}</TableCell>
+                            }}>{translate.bills[language]}</TableCell>
                         </TableRow>
                     )}
                     {breakdown.filter(item => !item.isCoin).map((item) => (
@@ -83,15 +67,15 @@ const ResultTableView: React.FC<Props> = ({
                                        sx={{ fontWeight: 500, fontSize: '1.04em', py: 1.1 }}>
                                 <BillIcon
                                     value={item.value}
-                                    width={32}
-                                    height={19}
+                                    color={item.color}
+                                    width={40}
+                                    height={25}
                                     style={{
                                         verticalAlign: 'middle',
                                         marginRight: 8,
                                         borderRadius: 6,
                                         background: '#fff'
                                     }}
-                                    ariaLabel={`${item.value} ${selectedCurrency?.symbol}`}
                                 />
                                 {item.value} {selectedCurrency?.symbol}
                             </TableCell>
@@ -101,7 +85,7 @@ const ResultTableView: React.FC<Props> = ({
                                 py: 1.1
                             }}>{item.count}</TableCell>
                             <TableCell align="right"
-                                       sx={{ fontWeight: 500, fontSize: '1.04em', py: 1.1 }}>
+                                       sx={{ fontWeight: 600, fontSize: '1.04em', py: 1.1 }}>
                                 {new Intl.NumberFormat(language === 'de' ? 'de-DE' : language === 'hu' ? 'hu-HU' : 'en-US').format(item.value * item.count)} {selectedCurrency?.symbol}
                             </TableCell>
                         </TableRow>
@@ -117,7 +101,7 @@ const ResultTableView: React.FC<Props> = ({
                                 borderTop: '2px solid #e0e7ff',
                                 borderBottom: '1.5px solid #e0e7ff',
                                 borderRadius: '12px 12px 0 0'
-                            }}>{t.coins[language]}</TableCell>
+                            }}>{translate.coins[language]}</TableCell>
                         </TableRow>
                     )}
                     {breakdown.filter(item => item.isCoin).map((item) => (
@@ -131,6 +115,7 @@ const ResultTableView: React.FC<Props> = ({
                                        sx={{ fontWeight: 500, fontSize: '1.04em', py: 1.1 }}>
                                 <CoinIcon
                                     value={item.value}
+                                    color={item.color}
                                     width={24}
                                     height={24}
                                     style={{
@@ -139,7 +124,6 @@ const ResultTableView: React.FC<Props> = ({
                                         borderRadius: 6,
                                         background: '#fff'
                                     }}
-                                    ariaLabel={`${item.value} ${selectedCurrency?.symbol}`}
                                 />
                                 {item.value} {selectedCurrency?.symbol}
                             </TableCell>
@@ -149,7 +133,7 @@ const ResultTableView: React.FC<Props> = ({
                                 py: 1.1
                             }}>{item.count}</TableCell>
                             <TableCell align="right"
-                                       sx={{ fontWeight: 500, fontSize: '1.04em', py: 1.1 }}>
+                                       sx={{ fontWeight: 600, fontSize: '1.04em', py: 1.1 }}>
                                 {new Intl.NumberFormat(language === 'de' ? 'de-DE' : language === 'hu' ? 'hu-HU' : 'en-US').format(item.value * item.count)} {selectedCurrency?.symbol}
                             </TableCell>
                         </TableRow>

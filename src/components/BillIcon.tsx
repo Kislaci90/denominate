@@ -2,26 +2,23 @@ import React from 'react';
 
 interface BillIconProps {
     value: string | number;
+    color: string;
     width?: number;
     height?: number;
-    className?: string;
     style?: React.CSSProperties;
-    ariaLabel?: string;
 }
 
-const BillIcon: React.FC<BillIconProps> = ({value, width = 40, height = 24, className, style, ariaLabel}) => (
+const BillIcon: React.FC<BillIconProps> = ({value, width = 40, height = 24, style, color}) => (
     <svg
         width={width}
         height={height}
         viewBox="0 0 40 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className={className}
         style={style}
-        aria-label={ariaLabel || value.toString()}
         role="img"
     >
-        <rect x="1" y="1" width="38" height="22" rx="4" fill="#6C63FF" stroke="#3F3D56" strokeWidth="2"/>
+        <rect x="1" y="1" width="38" height="22" rx="4" fill={color} stroke="#3F3D56" strokeWidth="0.5"/>
         <text
             x="20"
             y="16"

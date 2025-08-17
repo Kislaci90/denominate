@@ -35,6 +35,10 @@ type Props = {
     formatAmountInput: (value: string, lang: string) => string;
 };
 
+function showHistoryEntriesAsList(historyEntry: HistoryEntry) {
+    return historyEntry.breakdown.map((item: any, i: number) => `${item.count} × ${item.value} ${historyEntry.symbol}`).join(', ');
+}
+
 const HistoryList: React.FC<Props> = ({
                                           history,
                                           translate,
@@ -45,65 +49,55 @@ const HistoryList: React.FC<Props> = ({
                                           amountInputRef,
                                           formatAmountInput,
                                       }) => (
-    <Container maxWidth="md" sx={{ mt: 2 }}>
-        <Card elevation={8} sx={{ borderRadius: 4, p: { xs: 1.5, sm: 3 }, boxShadow: '0 8px 32px 0 rgba(108,99,255,0.10)' }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1 }}>
-                <ListSubheader component="div" sx={{ fontWeight: 700, fontSize: '1.13rem', color: 'primary.main', bgcolor: 'transparent', px: 0, py: 0 }}>
+    <Container maxWidth="md" sx={{mt: 2}}>
+        <Card elevation={8} className="history-card">
+            <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1}}>
+                <ListSubheader component="div" >
                     {translate.history[language]}
                 </ListSubheader>
-                <Button size="small" color="secondary" variant="outlined" onClick={() => { setHistory([]); Cookies.remove('denom_history'); }} sx={{ ml: 2, textTransform: 'none', fontWeight: 600, borderRadius: 2, px: 2, py: 0.5 }}>
+                <Button size="small" color="secondary" variant="outlined" onClick={() => {
+                    setHistory([]);
+                    Cookies.remove('denom_history');
+                }} className='delete-button'>
                     {translate.clearHistory[language]}
                 </Button>
             </Box>
-            <Divider sx={{ mb: 1.5, borderColor: '#e0e7ff' }} />
-            <List sx={{ p: 0 }}>
-                {history.map((h, idx) => (
-                    <Tooltip title={translate.loadFromHistory[language](h.formatted, h.symbol || '')} arrow key={idx}>
+
+            <Divider className='devider'/>
+
+            <List className="history-list">
+                {history.map((historyEntry, index) => (
+                    <Tooltip
+                        title={translate.loadFromHistory[language](historyEntry.formatted, historyEntry.symbol || '')}
+                        arrow key={index}>
                         <ListItem
                             alignItems="flex-start"
-                            sx={{
-                                mb: 1.2,
-                                px: 1.2,
-                                py: 1.1,
-                                borderRadius: 3,
-                                cursor: 'pointer',
-                                transition: 'background 0.15s, box-shadow 0.15s',
-                                '&:hover, &:focus': {
-                                    background: 'rgba(108,99,255,0.07)',
-                                    boxShadow: 2,
-                                    outline: 'none',
-                                },
-                                '&:active': {
-                                    background: 'rgba(108,99,255,0.13)',
-                                },
-                                border: '1.5px solid #f3f4fa',
-                                boxShadow: 0,
-                            }}
+                            className="history-list-item"
                             onClick={() => {
-                                const rawValue = h.raw ? h.raw : h.formatted.replace(/[^\d]/g, '');
+                                const rawValue = historyEntry.raw ? historyEntry.raw : historyEntry.formatted.replace(/[^\d]/g, '');
                                 setPendingAmount(formatAmountInput(rawValue, language));
-                                setPendingCurrency(h.currency);
+                                setPendingCurrency(historyEntry.currency);
                                 setTimeout(() => {
-                                    amountInputRef?.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                    amountInputRef?.current?.scrollIntoView({behavior: 'smooth', block: 'center'});
                                     amountInputRef?.current?.focus();
                                 }, 100);
                             }}
                             tabIndex={0}
-                            aria-label={translate.loadFromHistory[language](h.formatted, h.symbol || '')}
+                            aria-label={translate.loadFromHistory[language](historyEntry.formatted, historyEntry.symbol || '')}
                         >
-                            <ListItemIcon sx={{ minWidth: 36 }}>
-                                <span style={{ fontSize: 22 }}>{h.flag}</span>
+                            <ListItemIcon className="history-list-item-icon" sx={{minWidth: 36}}>
+                                <span style={{fontSize: 22}}>{historyEntry.flag}</span>
                             </ListItemIcon>
                             <ListItemText
+                                className="history-list-item-text"
                                 primary={<>
-                                    <b style={{ fontWeight: 600, fontSize: '1.08em' }}>{h.formatted} {h.symbol}</b> <span style={{ color: '#888', fontSize: '0.97em', fontWeight: 400 }}>({new Date(h.time).toLocaleString()})</span>
+                                    <b>{historyEntry.formatted} {historyEntry.symbol}</b>
+                                    <span>({new Date(historyEntry.time).toLocaleString()})</span>
                                 </>}
-                                secondary={h.breakdown && h.breakdown.length > 0 ? (
-                                    <span style={{ color: '#555', fontSize: '0.98em' }}>
-                    {h.breakdown.slice(0, 4).map((item: any, i: number) => `${item.count} × ${item.value} ${h.symbol}`).join(', ')}
-                                        {h.breakdown.length > 4 ? '...' : ''}
-                  </span>
-                                ) : <span style={{ color: '#aaa', fontSize: '0.98em' }}>{translate.noBreakdown[language]}</span>}
+
+                                secondary={historyEntry.breakdown && historyEntry.breakdown.length > 0 ? (
+                                    <span>{showHistoryEntriesAsList(historyEntry)}</span>
+                                ) : <span>{translate.noBreakdown[language]}</span>}
                             />
                         </ListItem>
                     </Tooltip>

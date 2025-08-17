@@ -59,10 +59,10 @@ const EUR_DENOMINATIONS: Denomination[] = [{value: 500, color: '#B4C69A'}, {valu
 const theme = createTheme({
     palette: {
         primary: {
-            main: '#2E7D32', // zöldes, stabil (pl. gombokhoz)
+            main: '#2E7D32',
         },
         secondary: {
-            main: '#E57373', // kék, jól illik az 1000 Ft-hoz
+            main: '#E57373',
         },
         background: {
             default: '#F5F5F5',
@@ -134,7 +134,7 @@ function denominateFiltered(amount: number, currency: string, enabled: Denominat
         const denominationValue = (currency === 'EUR' || currency === 'USD') ? Math.round(denomination.value * 100) : denomination.value;
         const count = Math.floor(remaining / denominationValue);
         if (count > 0) {
-            result.push({value: denomination.value, count, isCoin: i >= coinStartIdx, color: denomination.color});
+            result.push({value: denominationValue, count, isCoin: i >= coinStartIdx, color: denomination.color});
             remaining -= count * denominationValue;
         }
     }
@@ -330,7 +330,6 @@ function App() {
             <ResultArea
                 isValid={isValid}
                 breakdown={breakdown}
-                currency={currency}
                 selectedCurrency={selectedCurrency}
                 formattedAmount={formattedAmount}
                 translate={translate}

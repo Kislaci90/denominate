@@ -14,7 +14,7 @@ const CoinIcon: React.FC<CoinIconProps> = ({ value, width = 28, height = 28, sty
     height={height}
     viewBox="0 0 28 28"
     fill="none"
-    xmlns="http://www.w3.org/2000/svg"
+    xmlns="https://www.w3.org/2000/svg"
     style={style}
     role="img"
   >

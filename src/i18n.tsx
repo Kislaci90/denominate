@@ -8,7 +8,6 @@ type AmountSymbolFn = (amt: string | number, sym: string) => string;
 export const translate: {
     heroTitle: Record<string, string>,
     heroSubtitle: Record<string, string>,
-    features: Array<{ icon: React.JSX.Element, title: Record<string, string>, desc: Record<string, string> }>,
     inputLabel: Record<string, string>,
     inputTooltip: Record<string, string>,
     clear: Record<string, string>,
@@ -39,47 +38,6 @@ export const translate: {
         de: 'Teile jeden Betrag sofort in die optimale Kombination aus Scheinen und Münzen auf. Schnell, anpassbar und barrierefrei für EUR, USD und HUF.',
         hu: 'Bármilyen összeget azonnal bonts le a legoptimálisabb bankjegyekre és érmékre. Gyors, testreszabható és akadálymentes EUR, USD és HUF esetén.',
     },
-    features: [
-        {
-            icon: <SpeedIcon className="landing-feature-icon"/>,
-            title: {
-                en: 'Instant, Accurate Results',
-                de: 'Sofortige, präzise Ergebnisse',
-                hu: 'Azonali, pontos eredmények'
-            },
-            desc: {
-                en: 'Get the optimal breakdown of any amount in EUR, USD, or HUF—instantly and with perfect accuracy.',
-                de: 'Erhalte sofort die optimale Aufteilung eines Betrags in EUR, USD oder HUF – schnell und präzise.',
-                hu: 'Kapd meg bármely összeg optimális bontását EUR, USD vagy HUF pénznemben – azonnal és pontosan.',
-            }
-        },
-        {
-            icon: <SettingsIcon className="landing-feature-icon"/>,
-            title: {
-                en: 'Customizable & Persistent',
-                de: 'Anpassbar & dauerhaft',
-                hu: 'Testreszabható & megőrzött beállítások'
-            },
-            desc: {
-                en: 'Choose which bills and coins are available. Your preferences and history are saved for next time.',
-                de: 'Wähle verfügbare Scheine und Münzen. Deine Einstellungen und Historie werden gespeichert.',
-                hu: 'Válaszd ki, mely címletek elérhetők. Beállításaid és előzményeid elmentésre kerülnek.',
-            }
-        },
-        {
-            icon: <EmojiObjectsIcon className="landing-feature-icon"/>,
-            title: {
-                en: 'Modern, Accessible Design',
-                de: 'Modernes, barrierefreies Design',
-                hu: 'Modern, akadálymentes dizájn'
-            },
-            desc: {
-                en: 'Enjoy a beautiful, accessible interface with keyboard navigation, high contrast, and responsive layout.',
-                de: 'Genieße eine schöne, barrierefreie Oberfläche mit Tastaturnavigation, hohem Kontrast und responsivem Layout.',
-                hu: 'Élvezd a szép, akadálymentes felületet billentyűzetes navigációval, nagy kontraszttal és reszponzív elrendezéssel.',
-            }
-        },
-    ],
     inputLabel: {en: 'Amount', de: 'Betrag', hu: 'Összeg'},
     inputTooltip: {
         en: 'Enter the amount you want to denominate',

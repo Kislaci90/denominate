@@ -16,7 +16,6 @@ type Currency = {
 
 type Props = {
     breakdown: BreakdownItem[];
-    currency: string;
     selectedCurrency?: Currency | undefined;
     formattedAmount: string;
     translate: any;

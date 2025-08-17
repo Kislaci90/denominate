@@ -19,14 +19,13 @@ type Currency = {
 type Props = {
     isValid: boolean;
     breakdown: BreakdownItem[];
-    currency: string;
     selectedCurrency?: Currency;
     formattedAmount: string;
     translate: any;
     language: string;
 };
 
-const renderContent = (isValid: boolean, breakdown: BreakdownItem[], currency: string, formattedAmount: string, translate: any, language: string, selectedCurrency?: Currency) => {
+const renderContent = (isValid: boolean, breakdown: BreakdownItem[], formattedAmount: string, translate: any, language: string, selectedCurrency?: Currency) => {
     if (!isValid) {
         return (
             <Box sx={{textAlign: 'center', py: 4, color: 'text.secondary'}}>
@@ -41,7 +40,6 @@ const renderContent = (isValid: boolean, breakdown: BreakdownItem[], currency: s
     return (
         <ResultTableView
             breakdown={breakdown}
-            currency={currency}
             selectedCurrency={selectedCurrency}
             formattedAmount={formattedAmount}
             translate={translate}
@@ -53,7 +51,6 @@ const renderContent = (isValid: boolean, breakdown: BreakdownItem[], currency: s
 const ResultArea: React.FC<Props> = ({
                                          isValid,
                                          breakdown,
-                                         currency,
                                          selectedCurrency,
                                          formattedAmount,
                                          translate,
@@ -70,7 +67,7 @@ const ResultArea: React.FC<Props> = ({
                 </Box>
             </Box>
             {
-                renderContent(isValid, breakdown, currency, formattedAmount, translate, language, selectedCurrency)
+                renderContent(isValid, breakdown, formattedAmount, translate, language, selectedCurrency)
             }
         </Card>
     </Container>

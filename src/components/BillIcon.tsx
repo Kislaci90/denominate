@@ -14,7 +14,7 @@ const BillIcon: React.FC<BillIconProps> = ({value, width = 40, height = 24, styl
         height={height}
         viewBox="0 0 40 24"
         fill="none"
-        xmlns="http://www.w3.org/2000/svg"
+        xmlns="https://www.w3.org/2000/svg"
         style={style}
         role="img"
     >

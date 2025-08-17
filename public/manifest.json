@@ -1,6 +1,8 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Felvaltom App",
+  "name": "Felvaltom Application",
+  "description": "A web application for denomination management",
+  "version": "0.1.0",
   "icons": [
     {
       "src": "favicon.ico",

@@ -1,8 +1,3 @@
-import React from "react";
-import SpeedIcon from "@mui/icons-material/Speed";
-import SettingsIcon from "@mui/icons-material/Settings";
-import EmojiObjectsIcon from "@mui/icons-material/EmojiObjects";
-
 type AmountSymbolFn = (amt: string | number, sym: string) => string;
 
 export const translate: {
@@ -17,6 +12,8 @@ export const translate: {
     customizeTitle: Record<string, string>,
     customizeDesc: Record<string, string>,
     bills: Record<string, string>,
+    quantity: Record<string, string>,
+    subResult: Record<string, string>,
     coins: Record<string, string>,
     result: Record<string, string>,
     resultSummary: Record<string, AmountSymbolFn>,
@@ -34,9 +31,9 @@ export const translate: {
         hu: 'Felváltom!',
     },
     heroSubtitle: {
-        en: 'Instantly break down any amount into the optimal set of bills and coins. Fast, customizable, and accessible for EUR, USD, and HUF.',
-        de: 'Teile jeden Betrag sofort in die optimale Kombination aus Scheinen und Münzen auf. Schnell, anpassbar und barrierefrei für EUR, USD und HUF.',
-        hu: 'Bármilyen összeget azonnal bonts le a legoptimálisabb bankjegyekre és érmékre. Gyors, testreszabható és akadálymentes EUR, USD és HUF esetén.',
+        en: 'Enter the amount, and we’ll tell you how many banknotes and coins you need! Felvoltam is a quick and practical solution for handling cash — or just for curiosity.',
+        de: 'Gib den Betrag ein, und wir sagen dir, wie viele Geldscheine und Münzen du brauchst! Felvoltam ist eine schnelle und praktische Lösung für den Umgang mit Bargeld – oder einfach nur aus Neugier.',
+        hu: 'Add meg az összeget, mi pedig megmondjuk, mennyi bankjegyre és érmére van szükséged! A Felvoltam gyors, praktikus megoldás készpénzkezeléshez vagy csak kíváncsiságból.',
     },
     inputLabel: {en: 'Amount', de: 'Betrag', hu: 'Összeg'},
     inputTooltip: {
@@ -63,6 +60,8 @@ export const translate: {
         hu: 'Kattints a címletekre, hogy engedélyezd vagy letiltsd őket a felbontáshoz.',
     },
     bills: {en: 'Bills', de: 'Scheine', hu: 'Bankjegyek'},
+    quantity: {en: 'Qty', de: 'Stück', hu: 'Darab'},
+    subResult: {en: 'Subtotal', de: 'Zwischensumme', hu: 'Részeredmény'},
     coins: {en: 'Coins', de: 'Münzen', hu: 'Érmék'},
     result: {en: 'Result', de: 'Ergebnis', hu: 'Eredmény'},
     resultSummary: {

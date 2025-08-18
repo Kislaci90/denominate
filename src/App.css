@@ -27,6 +27,11 @@ body, #root {
     flex-direction: column;
     align-items: center;
     text-align: center;
+    font-size: 1.5rem;
+}
+
+.landing-feature p {
+    font-size: 1.4rem;
 }
 
 .divider {
@@ -78,6 +83,31 @@ body, #root {
 .result-list .MuiListItem-root:focus-visible {
     outline: 2px solid #2E7D32;
     outline-offset: 2px;
+}
+
+.result-table-header {
+    font-weight: 700 !important;
+    color: #2E7D32 !important;
+    background-color: #f3f4fa;
+    font-size: 1.04em !important;
+    border-top: 2px solid #e0e7ff;
+    border-bottom: 1px solid #e0e7ff;
+    border-radius: 0 0 0 0 !important;
+}
+
+.result-table-row {
+    transition: background-color 0.15s ease;
+}
+
+.result-table-row:hover {
+    background-color: #f8f9fb;
+}
+
+.result-table-cell {
+    padding: 0.8rem 1.2rem !important;
+    font-size: 1.04em !important;
+    border-bottom: 1px solid #e0e7ff !important;
+    font-weight: 500 !important;
 }
 
 .amount-input .MuiInputBase-root {

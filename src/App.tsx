@@ -11,7 +11,8 @@ import AmountInput from "./components/AmountInput";
 import DenominateButton from "./components/DenominateButton";
 import ResultArea from "./components/Result";
 import {translate} from './i18n';
-import HistoryList from "./components/HistoryList"; // Import your translation function
+import HistoryList from "./components/HistoryList";
+import {initGA, trackPageview} from "./utils/analytics"; // Import your translation function
 
 const currencies = [
     {code: 'HUF', label: 'Forint', symbol: 'Ft', icon: <AccountBalanceWalletIcon/>, flag: '🇭🇺'},
@@ -151,8 +152,6 @@ function App() {
     const [pendingCurrency, setPendingCurrency] = useState('HUF');
     const amountInputRef = useRef<HTMLInputElement>(null);
 
-    const isMobile = useMediaQuery('(max-width:600px)');
-
     // Helper to format with thousands separators
     function formatAmountInput(value: string, lang: string) {
         // Remove all non-digit characters
@@ -179,7 +178,6 @@ function App() {
         }
     }
 
-    // Parse and denominate
     const parsedAmount = parseInt(amount.replace(/\D/g, ''), 10);
     const isValid = !isNaN(parsedAmount) && parsedAmount > 0;
     let breakdown: { value: number; count: number; isCoin: boolean, color: string }[] = [];
@@ -222,12 +220,6 @@ function App() {
         setEnabledDenoms(denominations);
     }, [currency]);
 
-    // Save enabled denominations to cookies
-    // const saveEnabledDenoms = (newDenoms: number[]) => {
-    //     setEnabledDenoms(newDenoms);
-    //     Cookies.set(`denoms_${currency}`, JSON.stringify(newDenoms), {expires: 365});
-    // };
-
     // Load history from cookies on mount
     useEffect(() => {
         const cookie = Cookies.get('denom_history');
@@ -260,16 +252,14 @@ function App() {
         // eslint-disable-next-line
     }, [parsedAmount, currency]);
 
+    useEffect(() => {
+        initGA();
+        trackPageview(window.location.pathname);
+    }, []);
+
     // For pending input
     const pendingParsedAmount = parseInt((pendingAmount || amount).replace(/\D/g, ''), 10);
     const pendingIsValid = !isNaN(pendingParsedAmount) && pendingParsedAmount > 0;
-
-    const filteredDenominations = getDenominationsForCurrency(currency).filter((d: Denomination) => enabledDenoms.includes(d));
-
-    // Determine if any bill or coin is disabled for the current currency
-    const chipCurrency = pendingCurrency || currency;
-    const denoms = getDenominationsForCurrency(chipCurrency);
-    const anyDisabled = denoms.some(d => !enabledDenoms.includes(d));
 
     return (
         <ThemeProvider theme={theme}>
@@ -288,9 +278,7 @@ function App() {
 
                 <Box className="landing-feature">
                     <Typography color="#666">
-                        Add meg az összeget, mi pedig megmondjuk, mennyi bankjegyre és érmére van szükséged!
-                        A <strong>Felvoltam</strong> gyors, praktikus megoldás készpénzkezeléshez vagy csak
-                        kíváncsiságból.
+                        {translate.heroSubtitle[language]}
                     </Typography>
                 </Box>
 
@@ -312,7 +300,6 @@ function App() {
                         onKeyDown={handleInputKeyDown}
                         onClear={() => {
                             setPendingAmount('0');
-                            setAmount('0');
                         }}
                         inputRef={amountInputRef}
                         isValid={pendingIsValid}
@@ -320,7 +307,7 @@ function App() {
                     <DenominateButton
                         pendingIsValid={pendingIsValid}
                         handleDenominate={handleDenominate}
-                        t={translate}
+                        translate={translate}
                         language={language}
                     />
                 </Box>

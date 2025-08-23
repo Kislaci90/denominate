@@ -24,7 +24,7 @@ type Props = {
     history: HistoryEntry[],
     language: Language,
     setHistory: (h: HistoryEntry[]) => void,
-    setPendingAmount: (amt: number) => void,
+    setPendingAmount: (amt: string) => void,
     setAmount: (amt: number) => void,
     setCurrency: (cur: string) => void,
     resultAreaRef?: React.RefObject<HTMLDivElement | null>
@@ -64,7 +64,7 @@ const HistoryList: React.FC<Props> = ({
                             alignItems="flex-start"
                             className="history-list-item"
                             onClick={() => {
-                                setPendingAmount(historyEntry.amount);
+                                setPendingAmount(historyEntry.amount.toString());
                                 setAmount(historyEntry.amount);
                                 setCurrency(historyEntry.currency.code);
                                 setTimeout(() => {

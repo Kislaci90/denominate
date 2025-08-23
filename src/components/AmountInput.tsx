@@ -32,6 +32,7 @@ const AmountInput: React.FC<Props> = ({
             <Tooltip title={translate.inputTooltip[language]} arrow placement="top">
                 <TextField
                     className="amount-input"
+                    type="text"
                     label={translate.inputLabel[language]}
                     value={value}
                     onChange={onAmountChange}
@@ -64,8 +65,8 @@ const AmountInput: React.FC<Props> = ({
                             </InputAdornment>
                         ),
                         inputProps: {
-                            inputMode: 'numeric',
-                            pattern: '[0-9 ]*',
+                            inputMode: 'decimal',
+                            pattern: '[0-9]*[.,]?[0-9]*',
                             'aria-describedby': 'amount-helper-text'
                         }
                     }}

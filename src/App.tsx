@@ -11,7 +11,6 @@ import {translate} from './i18n';
 import HistoryList from "./components/HistoryList";
 import {initGA, trackPageview} from "./utils/analytics";
 import CurrencySelector from "./components/CurrencySelector";
-import {formatNumberByLanguage} from "./utils/helper";
 import {denominate, DenominateResult} from "./logic/denomination";
 import {currencies} from "./logic/currencies";
 import {getLanguageByCode} from "./logic/language";
@@ -61,7 +60,7 @@ const theme = createTheme({
 
 function App() {
     const [amount, setAmount] = useState(0);
-    const [pendingAmount, setPendingAmount] = useState(0);
+    const [pendingAmount, setPendingAmount] = useState("0");
     const [currency, setCurrency] = useState('HUF');
     const [language, setLanguage] = useState('hu');
     const [history, setHistory] = useState<any[]>([]);
@@ -69,12 +68,11 @@ function App() {
     const resultAreaRef = useRef<HTMLDivElement>(null);
 
     function handleAmountChange(e: React.ChangeEvent<HTMLInputElement>) {
-        const digitsOnly = e.target.value.replace(/\D/g, '');
-        setPendingAmount(Number(digitsOnly));
+        setPendingAmount(e.target.value.replace(/[^0-9.,]/g, ''));
     }
 
     function handleDenominate() {
-        setAmount(pendingAmount)
+        setAmount(parseFloat(pendingAmount.replace(',', '.')))
         amountInputRef.current?.select();
     }
 
@@ -84,7 +82,7 @@ function App() {
         }
     }
 
-    const isValid = pendingAmount > 0;
+    const isValid = pendingAmount !== '' && !isNaN(Number(pendingAmount.replace(',', '.'))) && Number(pendingAmount.replace(',', '.')) > 0;
     let denominateResults: DenominateResult[] = [];
     if (isValid) {
         denominateResults = denominate(amount, currency);
@@ -156,12 +154,13 @@ function App() {
                     <CurrencySelector currency={currency} onChange={setCurrency} language={language}/>
 
                     <AmountInput
-                        value={formatNumberByLanguage(getLanguageByCode(language), pendingAmount)}
+                        value={pendingAmount}
                         language={language}
                         onAmountChange={handleAmountChange}
                         onKeyDown={handleInputKeyDown}
                         onClear={() => {
-                            setAmount(0);
+                            setAmount(0)
+                            setPendingAmount("0");
                         }}
                         inputRef={amountInputRef}
                     />

@@ -26,7 +26,7 @@ const ResultTableView: React.FC<Props> = ({
 
        </Box>
         <div className="result-area-summary">
-            <span className="result-amount-value">{formatNumberByLanguage(getLanguageByCode(language), Number(amount))}</span> {translate.resultSummary[language]('', selectedCurrency.symbol)}
+            <span className="result-amount-value">{formatNumberByLanguage(getLanguageByCode(language), amount)}</span> {translate.resultSummary[language]('', selectedCurrency.symbol)}
         </div>
         <div className="result-area-divider"/>
         <TableContainer component={Paper}

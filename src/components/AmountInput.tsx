@@ -1,21 +1,19 @@
 import React, {RefObject} from 'react';
 import {Box, IconButton, InputAdornment, TextField, Tooltip} from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
+import {translate} from "../i18n";
 
 type Props = {
     value: string;
-    translate: any;
     language: string;
     onAmountChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
     onClear: () => void;
     inputRef: RefObject<HTMLInputElement | null>;
-    isValid: boolean;
 };
 
 const AmountInput: React.FC<Props> = ({
                                           value,
-                                          translate,
                                           language,
                                           onAmountChange,
                                           onKeyDown,

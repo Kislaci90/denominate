@@ -3,6 +3,7 @@ type AmountSymbolFn = (amt: string | number, sym: string) => string;
 export const translate: {
     heroTitle: Record<string, string>,
     heroSubtitle: Record<string, string>,
+    currencySelectLabel: Record<string, string>,
     inputLabel: Record<string, string>,
     inputTooltip: Record<string, string>,
     clear: Record<string, string>,
@@ -26,8 +27,8 @@ export const translate: {
     enterToSee: Record<string, string>,
 } = {
     heroTitle: {
-        en: 'Denomination Calculator',
-        de: 'Stückelungsrechner',
+        en: 'Felváltom!',
+        de: 'Felváltom!',
         hu: 'Felváltom!',
     },
     heroSubtitle: {
@@ -35,6 +36,7 @@ export const translate: {
         de: 'Gib den Betrag ein, und wir sagen dir, wie viele Geldscheine und Münzen du brauchst! Felvoltam ist eine schnelle und praktische Lösung für den Umgang mit Bargeld – oder einfach nur aus Neugier.',
         hu: 'Add meg az összeget, mi pedig megmondjuk, mennyi bankjegyre és érmére van szükséged! A Felvoltam gyors, praktikus megoldás készpénzkezeléshez vagy csak kíváncsiságból.',
     },
+    currencySelectLabel: {en: 'Currency', de: 'Währung', hu: 'Pénznem'},
     inputLabel: {en: 'Amount', de: 'Betrag', hu: 'Összeg'},
     inputTooltip: {
         en: 'Enter the amount you want to denominate',

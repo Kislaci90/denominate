@@ -1,31 +1,22 @@
-// denominate/src/components/ResultArea.tsx
 import React from 'react';
 import {Box, Card, Container, Typography} from '@mui/material';
 import EmojiObjectsIcon from '@mui/icons-material/EmojiObjects';
 import ResultTableView from './ResultTableView';
+import {DenominateResult} from "../logic/denomination";
+import {Currency} from "../logic/currencies";
+import {translate} from "../i18n";
 
-type BreakdownItem = {
-    value: number;
-    color: string;
-    count: number;
-    isCoin: boolean;
-};
-
-type Currency = {
-    symbol: string;
-    flag?: string;
-};
 
 type Props = {
-    isValid: boolean;
-    breakdown: BreakdownItem[];
-    selectedCurrency?: Currency;
-    formattedAmount: string;
-    translate: any;
-    language: string;
+    isValid: boolean,
+    denominationResult: DenominateResult[],
+    selectedCurrency: Currency,
+    amount: number,
+    language: string,
+    ref?: React.RefObject<HTMLDivElement | null>
 };
 
-const renderContent = (isValid: boolean, breakdown: BreakdownItem[], formattedAmount: string, translate: any, language: string, selectedCurrency?: Currency) => {
+const renderContent = (isValid: boolean, denominationResult: DenominateResult[], amount: number, language: string, selectedCurrency: Currency) => {
     if (!isValid) {
         return (
             <Box sx={{textAlign: 'center', py: 4, color: 'text.secondary'}}>
@@ -39,10 +30,9 @@ const renderContent = (isValid: boolean, breakdown: BreakdownItem[], formattedAm
 
     return (
         <ResultTableView
-            breakdown={breakdown}
+            denominationResult={denominationResult}
             selectedCurrency={selectedCurrency}
-            formattedAmount={formattedAmount}
-            translate={translate}
+            amount={amount}
             language={language}
         />
     );
@@ -50,13 +40,13 @@ const renderContent = (isValid: boolean, breakdown: BreakdownItem[], formattedAm
 
 const ResultArea: React.FC<Props> = ({
                                          isValid,
-                                         breakdown,
+                                         denominationResult,
                                          selectedCurrency,
-                                         formattedAmount,
-                                         translate,
-                                         language
+                                         amount,
+                                         language,
+                                         ref
                                      }) => (
-    <Container maxWidth="md" sx={{mt: 2}}>
+    <Container maxWidth="md" sx={{mt: 2}} ref={ref}>
         <Card elevation={8} className="result-area-card">
             <Box sx={{display: 'flex', alignItems: 'center', mb: 2, justifyContent: 'space-between'}}>
                 <Box sx={{display: 'flex', alignItems: 'center'}}>
@@ -67,7 +57,7 @@ const ResultArea: React.FC<Props> = ({
                 </Box>
             </Box>
             {
-                renderContent(isValid, breakdown, formattedAmount, translate, language, selectedCurrency)
+                renderContent(isValid, denominationResult, amount, language, selectedCurrency)
             }
         </Card>
     </Container>

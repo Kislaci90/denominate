@@ -1,9 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Box, Typography, useMediaQuery} from '@mui/material';
-import EuroIcon from '@mui/icons-material/Euro';
+import {Box, Typography} from '@mui/material';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import Cookies from 'js-cookie';
 import './App.css';
 import TopBar from './components/TopBar';
@@ -12,14 +9,13 @@ import DenominateButton from "./components/DenominateButton";
 import ResultArea from "./components/Result";
 import {translate} from './i18n';
 import HistoryList from "./components/HistoryList";
-import {initGA, trackPageview} from "./utils/analytics"; // Import your translation function
-
-const currencies = [
-    {code: 'HUF', label: 'Forint', symbol: 'Ft', icon: <AccountBalanceWalletIcon/>, flag: '🇭🇺'},
-    {code: 'EUR', label: 'Euro', symbol: '€', icon: <EuroIcon/>, flag: '🇪🇺'},
-    {code: 'USD', label: 'Dollar', symbol: '$', icon: <AttachMoneyIcon/>, flag: '🇺🇸'},
-    // Future: add more currencies with icons
-];
+import {initGA, trackPageview} from "./utils/analytics";
+import CurrencySelector from "./components/CurrencySelector";
+import {formatNumberByLanguage} from "./utils/helper";
+import {denominate, DenominateResult} from "./logic/denomination";
+import {currencies} from "./logic/currencies";
+import {getLanguageByCode} from "./logic/language";
+import {HistoryEntry} from "./logic/history";
 
 const languages = [
     {code: 'hu', label: 'Magyar'},
@@ -27,36 +23,6 @@ const languages = [
     {code: 'de', label: 'Deutsch'},
 ];
 
-type Denomination = {
-    value: number;
-    color: string;
-}
-
-// Denominations for each currency
-const HUF_DENOMINATIONS: Denomination[] = [{value: 20000, color: '#9EC2B1'}, {
-    value: 10000,
-    color: '#B4C69A'
-}, {value: 5000, color: '#D1A69A'}, {value: 2000, color: '#C9B6D6'}, {value: 1000, color: '#A6D3E9'}, {
-    value: 500,
-    color: '#F5D0A9'
-}, {value: 200, color: '#D5B87A'}, {value: 100, color: '#D5B87A'}, {value: 50, color: '#C9B037'}, {
-    value: 20,
-    color: '#CCCCCC'
-}, {value: 10, color: '#999999'}, {value: 5, color: '#A97142'}];
-const EUR_DENOMINATIONS: Denomination[] = [{value: 500, color: '#B4C69A'}, {value: 200, color: '#B4C69A'}, {
-    value: 100,
-    color: '#B4C69A'
-}, {value: 50, color: '#B4C69A'}, {value: 20, color: '#B4C69A'}, {value: 10, color: '#B4C69A'}, {
-    value: 5,
-    color: '#B4C69A'
-}, {value: 2, color: '#B4C69A'}, {value: 1, color: '#B4C69A'}, {value: 0.5, color: '#B4C69A'}, {
-    value: 0.2,
-    color: '#B4C69A'
-}, {value: 0.1, color: '#B4C69A'}, {value: 0.05, color: '#B4C69A'}, {value: 0.02, color: '#B4C69A'}, {
-    value: 0.01,
-    color: '#B4C69A'
-}];
-//const USD_DENOMINATIONS : Denomination[] = [{value:100, color: '#B4C69A'}, {value:50, color: '#B4C69A'}, {value:20, color: '#B4C69A'}, {value:10, color: '#B4C69A'}, {value:5, color: '#B4C69A'}, {value:10000, color: '#B4C69A'}, 1, 0.5, 0.25, 0.1, 0.05, 0.01];
 const theme = createTheme({
     palette: {
         primary: {
@@ -93,82 +59,22 @@ const theme = createTheme({
     },
 });
 
-
-const getDenominationsForCurrency = (cur: string) => {
-    switch (cur) {
-        case 'HUF':
-            return HUF_DENOMINATIONS;
-        case 'EUR':
-            return EUR_DENOMINATIONS;
-        // case 'USD':
-        //     return USD_DENOMINATIONS;
-        default:
-            return [];
-    }
-};
-
-function denominateFiltered(amount: number, currency: string, enabled: Denomination[]): {
-    value: number;
-    count: number;
-    isCoin: boolean;
-    color: string;
-}[] {
-    let denominations: Denomination[] = getDenominationsForCurrency(currency).filter((d: Denomination) => enabled.includes(d));
-    let coinStartIdx = 0;
-    switch (currency) {
-        case 'EUR':
-            coinStartIdx = denominations.findIndex(d => d.value < 5);
-            break;
-        case 'USD':
-            coinStartIdx = denominations.findIndex(d => d.value < 1);
-            break;
-        case 'HUF':
-            coinStartIdx = denominations.findIndex(d => d.value <= 200);
-            break;
-        default:
-            return [];
-    }
-    let remaining = currency === 'EUR' || currency === 'USD' ? Math.round(amount * 100) : amount;
-    const result: { value: number; count: number; isCoin: boolean, color: string }[] = [];
-    for (let i = 0; i < denominations.length; i++) {
-        const denomination = denominations[i];
-        const denominationValue = (currency === 'EUR' || currency === 'USD') ? Math.round(denomination.value * 100) : denomination.value;
-        const count = Math.floor(remaining / denominationValue);
-        if (count > 0) {
-            result.push({value: denominationValue, count, isCoin: i >= coinStartIdx, color: denomination.color});
-            remaining -= count * denominationValue;
-        }
-    }
-    return result;
-}
-
 function App() {
-    const [amount, setAmount] = useState('');
+    const [amount, setAmount] = useState(0);
+    const [pendingAmount, setPendingAmount] = useState(0);
     const [currency, setCurrency] = useState('HUF');
     const [language, setLanguage] = useState('hu');
     const [history, setHistory] = useState<any[]>([]);
-    const [enabledDenoms, setEnabledDenoms] = useState<Denomination[]>([]);
-    const [pendingAmount, setPendingAmount] = useState('0');
-    const [pendingCurrency, setPendingCurrency] = useState('HUF');
     const amountInputRef = useRef<HTMLInputElement>(null);
+    const resultAreaRef = useRef<HTMLDivElement>(null);
 
-    // Helper to format with thousands separators
-    function formatAmountInput(value: string, lang: string) {
-        // Remove all non-digit characters
-        const digits = value.replace(/\D/g, '');
-        if (!digits) return '0';
-        return new Intl.NumberFormat(lang === 'de' ? 'de-DE' : 'en-US').format(Number(digits));
-    }
-
-    // Handler for input change
     function handleAmountChange(e: React.ChangeEvent<HTMLInputElement>) {
-        const raw = e.target.value.replace(/\D/g, '');
-        setPendingAmount(formatAmountInput(raw, language));
+        const digitsOnly = e.target.value.replace(/\D/g, '');
+        setPendingAmount(Number(digitsOnly));
     }
 
     function handleDenominate() {
-        setAmount(pendingAmount);
-        setCurrency(pendingCurrency);
+        setAmount(pendingAmount)
         amountInputRef.current?.select();
     }
 
@@ -178,51 +84,15 @@ function App() {
         }
     }
 
-    const parsedAmount = parseInt(amount.replace(/\D/g, ''), 10);
-    const isValid = !isNaN(parsedAmount) && parsedAmount > 0;
-    let breakdown: { value: number; count: number; isCoin: boolean, color: string }[] = [];
+    const isValid = pendingAmount > 0;
+    let denominateResults: DenominateResult[] = [];
     if (isValid) {
-        breakdown = denominateFiltered(parsedAmount, currency, enabledDenoms);
+        denominateResults = denominate(amount, currency);
     }
-    const selectedCurrency = currencies.find(c => c.code === currency);
+    const selectedCurrency = currencies.find(c => c.code === currency) ?? currencies[0];
 
-    // Format amount for visualization
-    const formattedAmount = amount
-        ? new Intl.NumberFormat('hu-HU').format(Number(amount.replace(/\D/g, '')))
-        : '';
-
-    // Load enabled denominations from cookies or default (all enabled)
     useEffect(() => {
-        const cookieKey = `denoms_${currency}`;
-        const cookie = Cookies.get(cookieKey);
-        let denominations: Denomination[] = [];
-        switch (currency) {
-            case 'EUR':
-                denominations = EUR_DENOMINATIONS;
-                break;
-            // case 'USD':
-            //     denominations = USD_DENOMINATIONS;
-            //     break;
-            case 'HUF':
-                denominations = HUF_DENOMINATIONS;
-                break;
-        }
-        if (cookie) {
-            try {
-                const parsed = JSON.parse(cookie);
-                if (Array.isArray(parsed) && parsed.every((v) => typeof v === 'number')) {
-                    setEnabledDenoms(parsed);
-                    return;
-                }
-            } catch {
-            }
-        }
-        setEnabledDenoms(denominations);
-    }, [currency]);
-
-    // Load history from cookies on mount
-    useEffect(() => {
-        const cookie = Cookies.get('denom_history');
+        const cookie = Cookies.get('denomination_history');
         if (cookie) {
             try {
                 const parsed = JSON.parse(cookie);
@@ -232,34 +102,26 @@ function App() {
         }
     }, []);
 
-    // Add to history on valid calculation
     useEffect(() => {
         if (!isValid || !amount) return;
-        const entry = {
-            amount: parsedAmount,
-            formatted: amount,
-            currency,
-            flag: selectedCurrency?.flag,
-            symbol: selectedCurrency?.symbol,
-            breakdown,
+        const entry: HistoryEntry = {
+            amount: amount,
             time: new Date().toISOString(),
+            currency: selectedCurrency,
+            denominationResult: denominateResults,
+
         };
         setHistory(prev => {
-            const newHist = [entry, ...prev.filter(e => !(e.amount === entry.amount && e.currency === entry.currency)).slice(0, 9)];
-            Cookies.set('denom_history', JSON.stringify(newHist), {expires: 365});
+            const newHist = [entry, ...prev.filter(e => !(e.amount === entry.amount && e.currency.code === entry.currency.code)).slice(0, 9)];
+            Cookies.set('denomination_history', JSON.stringify(newHist), {expires: 365});
             return newHist;
         });
-        // eslint-disable-next-line
-    }, [parsedAmount, currency]);
+    }, [amount, selectedCurrency]);
 
     useEffect(() => {
         initGA();
         trackPageview(window.location.pathname);
     }, []);
-
-    // For pending input
-    const pendingParsedAmount = parseInt((pendingAmount || amount).replace(/\D/g, ''), 10);
-    const pendingIsValid = !isNaN(pendingParsedAmount) && pendingParsedAmount > 0;
 
     return (
         <ThemeProvider theme={theme}>
@@ -267,7 +129,6 @@ function App() {
                 language={language}
                 setLanguage={setLanguage}
                 languages={languages}
-                t={translate}
             />
 
             <div className="landing-hero fade-in">
@@ -292,22 +153,21 @@ function App() {
                     mx: 'auto',
                     px: 2
                 }}>
+                    <CurrencySelector currency={currency} onChange={setCurrency} language={language}/>
+
                     <AmountInput
-                        value={pendingAmount || amount}
-                        translate={translate}
+                        value={formatNumberByLanguage(getLanguageByCode(language), pendingAmount)}
                         language={language}
                         onAmountChange={handleAmountChange}
                         onKeyDown={handleInputKeyDown}
                         onClear={() => {
-                            setPendingAmount('0');
+                            setAmount(0);
                         }}
                         inputRef={amountInputRef}
-                        isValid={pendingIsValid}
                     />
                     <DenominateButton
-                        pendingIsValid={pendingIsValid}
+                        pendingAmountIsValid={isValid}
                         handleDenominate={handleDenominate}
-                        translate={translate}
                         language={language}
                     />
                 </Box>
@@ -316,22 +176,21 @@ function App() {
 
             <ResultArea
                 isValid={isValid}
-                breakdown={breakdown}
+                denominationResult={denominateResults}
                 selectedCurrency={selectedCurrency}
-                formattedAmount={formattedAmount}
-                translate={translate}
+                amount={amount}
                 language={language}
+                ref={resultAreaRef}
             />
 
             <HistoryList
                 history={history}
-                translate={translate}
-                language={language}
+                language={getLanguageByCode(language)}
                 setHistory={setHistory}
                 setPendingAmount={setPendingAmount}
-                setPendingCurrency={setPendingCurrency}
-                amountInputRef={amountInputRef}
-                formatAmountInput={formatAmountInput}
+                setAmount={setAmount}
+                setCurrency={setCurrency}
+                resultAreaRef={resultAreaRef}
             />
 
             <div className="footer">© {new Date().getFullYear()} Denomination Calculator &middot; Made with ❤️</div>

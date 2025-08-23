@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+    Avatar,
     Box,
     Button,
     Card,
@@ -13,53 +14,42 @@ import {
     Tooltip
 } from '@mui/material';
 import Cookies from 'js-cookie';
+import {formatNumberByLanguage} from "../utils/helper";
+import {Language} from "../logic/language";
+import {HistoryEntry, showHistoryEntriesAsList} from "../logic/history";
+import {translate} from "../i18n";
 
-type HistoryEntry = {
-    formatted: string;
-    symbol: string;
-    flag: string;
-    time: string;
-    currency: string;
-    breakdown: any[];
-    raw?: string;
-};
 
 type Props = {
-    history: HistoryEntry[];
-    translate: any;
-    language: string;
-    setHistory: (h: HistoryEntry[]) => void;
-    setPendingAmount: (amt: string) => void;
-    setPendingCurrency: (cur: string) => void;
-    amountInputRef: React.RefObject<HTMLInputElement | null>;
-    formatAmountInput: (value: string, lang: string) => string;
+    history: HistoryEntry[],
+    language: Language,
+    setHistory: (h: HistoryEntry[]) => void,
+    setPendingAmount: (amt: number) => void,
+    setAmount: (amt: number) => void,
+    setCurrency: (cur: string) => void,
+    resultAreaRef?: React.RefObject<HTMLDivElement | null>
 };
-
-function showHistoryEntriesAsList(historyEntry: HistoryEntry) {
-    return historyEntry.breakdown.map((item: any, i: number) => `${item.count} × ${item.value} ${historyEntry.symbol}`).join(', ');
-}
 
 const HistoryList: React.FC<Props> = ({
                                           history,
-                                          translate,
                                           language,
                                           setHistory,
                                           setPendingAmount,
-                                          setPendingCurrency,
-                                          amountInputRef,
-                                          formatAmountInput,
+                                          setAmount,
+                                          setCurrency,
+                                          resultAreaRef
                                       }) => (
     <Container maxWidth="md" sx={{mt: 2}}>
         <Card elevation={8} className="history-card">
             <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1}}>
-                <ListSubheader component="div" >
-                    {translate.history[language]}
+                <ListSubheader component="div">
+                    {translate.history[language.code]}
                 </ListSubheader>
                 <Button size="small" color="secondary" variant="outlined" onClick={() => {
                     setHistory([]);
                     Cookies.remove('denom_history');
                 }} className='delete-button'>
-                    {translate.clearHistory[language]}
+                    {translate.clearHistory[language.code]}
                 </Button>
             </Box>
 
@@ -68,36 +58,42 @@ const HistoryList: React.FC<Props> = ({
             <List className="history-list">
                 {history.map((historyEntry, index) => (
                     <Tooltip
-                        title={translate.loadFromHistory[language](historyEntry.formatted, historyEntry.symbol || '')}
+                        title={translate.loadFromHistory[language.code](formatNumberByLanguage(language, Number(historyEntry.amount)), historyEntry.currency.symbol)}
                         arrow key={index}>
                         <ListItem
                             alignItems="flex-start"
                             className="history-list-item"
                             onClick={() => {
-                                const rawValue = historyEntry.raw ? historyEntry.raw : historyEntry.formatted.replace(/[^\d]/g, '');
-                                setPendingAmount(formatAmountInput(rawValue, language));
-                                setPendingCurrency(historyEntry.currency);
+                                setPendingAmount(historyEntry.amount);
+                                setAmount(historyEntry.amount);
+                                setCurrency(historyEntry.currency.code);
                                 setTimeout(() => {
-                                    amountInputRef?.current?.scrollIntoView({behavior: 'smooth', block: 'center'});
-                                    amountInputRef?.current?.focus();
+                                    resultAreaRef?.current?.scrollIntoView({behavior: 'smooth', block: 'center'});
+                                    resultAreaRef?.current?.focus();
                                 }, 100);
                             }}
                             tabIndex={0}
-                            aria-label={translate.loadFromHistory[language](historyEntry.formatted, historyEntry.symbol || '')}
+                            aria-label={translate.loadFromHistory[language.code](formatNumberByLanguage(language, Number(historyEntry.amount)), historyEntry.currency.symbol)}
                         >
                             <ListItemIcon className="history-list-item-icon" sx={{minWidth: 36}}>
-                                <span style={{fontSize: 22}}>{historyEntry.flag}</span>
+                                <span style={{fontSize: 22}}>
+                                    <Avatar
+                                        src={historyEntry.currency.flagUrl}
+                                        alt={historyEntry.currency.code}
+                                        sx={{width: 24, height: 16, borderRadius: 0}}
+                                    />
+                                </span>
                             </ListItemIcon>
                             <ListItemText
                                 className="history-list-item-text"
                                 primary={<>
-                                    <b>{historyEntry.formatted} {historyEntry.symbol}</b>
+                                    <b>{formatNumberByLanguage(language, Number(historyEntry.amount))} {historyEntry.currency.symbol}</b>
                                     <span>({new Date(historyEntry.time).toLocaleString()})</span>
                                 </>}
 
-                                secondary={historyEntry.breakdown && historyEntry.breakdown.length > 0 ? (
+                                secondary={historyEntry.denominationResult && historyEntry.denominationResult.length > 0 ? (
                                     <span>{showHistoryEntriesAsList(historyEntry)}</span>
-                                ) : <span>{translate.noBreakdown[language]}</span>}
+                                ) : <span>{translate.noBreakdown[language.code]}</span>}
                             />
                         </ListItem>
                     </Tooltip>

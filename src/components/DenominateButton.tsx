@@ -1,14 +1,14 @@
 import React from 'react';
 import {Box, Button, Typography} from '@mui/material';
+import {translate} from "../i18n";
 
 type Props = {
-    pendingIsValid: boolean;
+    pendingAmountIsValid: boolean;
     handleDenominate: () => void;
-    translate: any;
     language: string;
 };
 
-const DenominateButton: React.FC<Props> = ({ pendingIsValid, handleDenominate, translate, language }) => (
+const DenominateButton: React.FC<Props> = ({ pendingAmountIsValid, handleDenominate, language }) => (
     <>
         <Box sx={{width: '100%', display: 'flex', justifyContent: 'center'}}>
             <Button
@@ -34,7 +34,7 @@ const DenominateButton: React.FC<Props> = ({ pendingIsValid, handleDenominate, t
                         transform: 'none'
                     }
                 }}
-                disabled={!pendingIsValid}
+                disabled={!pendingAmountIsValid}
                 onClick={handleDenominate}
                 aria-describedby="denominate-helper-text"
             >
@@ -50,7 +50,7 @@ const DenominateButton: React.FC<Props> = ({ pendingIsValid, handleDenominate, t
                 fontSize: '0.85rem'
             }}
         >
-            {pendingIsValid ? translate.denominateHelper[language] : translate.denominateHelperInvalid[language]}
+            {pendingAmountIsValid ? translate.denominateHelper[language] : translate.denominateHelperInvalid[language]}
         </Typography>
     </>
 );

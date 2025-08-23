@@ -1,32 +1,24 @@
 import React from 'react';
-import {Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from '@mui/material';
+import {Box, Paper, Table, TableBody, TableCell, TableContainer, TableRow} from '@mui/material';
 import BillIcon from './BillIcon';
 import CoinIcon from './CoinIcon';
-
-type BreakdownItem = {
-    value: number;
-    color: string;
-    count: number;
-    isCoin: boolean;
-};
-
-type Currency = {
-    symbol: string;
-};
+import {DenominateResult} from "../logic/denomination";
+import {Currency} from "../logic/currencies";
+import {getLanguageByCode} from "../logic/language";
+import {formatNumberByLanguage} from "../utils/helper";
+import {translate} from "../i18n";
 
 type Props = {
-    breakdown: BreakdownItem[];
-    selectedCurrency?: Currency | undefined;
-    formattedAmount: string;
-    translate: any;
+    denominationResult: DenominateResult[];
+    selectedCurrency: Currency;
+    amount: number;
     language: string;
 };
 
 const ResultTableView: React.FC<Props> = ({
-                                              breakdown,
+                                              denominationResult,
                                               selectedCurrency,
-                                              formattedAmount,
-                                              translate,
+                                              amount,
                                               language
                                           }) => (
     <>
@@ -34,26 +26,26 @@ const ResultTableView: React.FC<Props> = ({
 
        </Box>
         <div className="result-area-summary">
-            <span className="result-amount-value">{formattedAmount}</span> {translate.resultSummary[language]('', selectedCurrency?.symbol)}
+            <span className="result-amount-value">{formatNumberByLanguage(getLanguageByCode(language), Number(amount))}</span> {translate.resultSummary[language]('', selectedCurrency.symbol)}
         </div>
         <div className="result-area-divider"/>
         <TableContainer component={Paper}
                         sx={{ borderRadius: 3, boxShadow: 0, mb: 2, overflow: 'hidden' }}>
             <Table size="medium" aria-label="denomination table">
                 <TableBody>
-                    {breakdown.filter(item => !item.isCoin).length > 0 && (
+                    {denominationResult.filter(item => !item.denomination.isCoin).length > 0 && (
                         <TableRow>
                             <TableCell colSpan={1} className="result-table-header">{translate.bills[language]}</TableCell>
                             <TableCell colSpan={1} align="right" className="result-table-header">{translate.quantity[language]}</TableCell>
                             <TableCell colSpan={1} align="right" className="result-table-header">{translate.subResult[language]}</TableCell>
                         </TableRow>
                     )}
-                    {breakdown.filter(item => !item.isCoin).map((item) => (
-                        <TableRow key={`bill-table-${item.value}`} className="result-table-row">
+                    {denominationResult.filter(item => !item.denomination.isCoin).map((item) => (
+                        <TableRow key={`bill-table-${item.denomination.value}`} className="result-table-row">
                             <TableCell component="th" scope="row">
                                 <BillIcon
-                                    value={item.value}
-                                    color={item.color}
+                                    value={item.denomination.value}
+                                    color={item.denomination.color}
                                     width={40}
                                     height={25}
                                     style={{
@@ -63,27 +55,27 @@ const ResultTableView: React.FC<Props> = ({
                                         background: '#fff'
                                     }}
                                 />
-                                {item.value} {selectedCurrency?.symbol}
+                                {item.denomination.value} {selectedCurrency.symbol}
                             </TableCell>
                             <TableCell align="right" className="result-table-cell" >{item.count}</TableCell>
                             <TableCell align="right" className="result-table-cell" >
-                                {new Intl.NumberFormat(language === 'de' ? 'de-DE' : language === 'hu' ? 'hu-HU' : 'en-US').format(item.value * item.count)} {selectedCurrency?.symbol}
+                                {formatNumberByLanguage(getLanguageByCode(language), item.denomination.value * item.count)} {selectedCurrency.symbol}
                             </TableCell>
                         </TableRow>
                     ))}
-                    {breakdown.filter(item => item.isCoin).length > 0 && (
+                    {denominationResult.filter(item => item.denomination.isCoin).length > 0 && (
                         <TableRow>
                             <TableCell colSpan={1} className="result-table-header">{translate.coins[language]}</TableCell>
                             <TableCell colSpan={1} align="right" className="result-table-header">{translate.quantity[language]}</TableCell>
                             <TableCell colSpan={1} align="right" className="result-table-header">{translate.subResult[language]}</TableCell>
                         </TableRow>
                     )}
-                    {breakdown.filter(item => item.isCoin).map((item) => (
-                        <TableRow key={`coin-table-${item.value}`} className="result-table-row">
+                    {denominationResult.filter(item => item.denomination.isCoin).map((item) => (
+                        <TableRow key={`coin-table-${item.denomination.value}`} className="result-table-row">
                             <TableCell component="th" scope="row">
                                 <CoinIcon
-                                    value={item.value}
-                                    color={item.color}
+                                    value={item.denomination.value}
+                                    color={item.denomination.color}
                                     width={24}
                                     height={24}
                                     style={{
@@ -93,11 +85,11 @@ const ResultTableView: React.FC<Props> = ({
                                         background: '#fff'
                                     }}
                                 />
-                                {item.value} {selectedCurrency?.symbol}
+                                {item.denomination.value} {selectedCurrency.symbol}
                             </TableCell>
                             <TableCell align="right" className="result-table-cell" >{item.count}</TableCell>
                             <TableCell align="right" className="result-table-cell" >
-                                {new Intl.NumberFormat(language === 'de' ? 'de-DE' : language === 'hu' ? 'hu-HU' : 'en-US').format(item.value * item.count)} {selectedCurrency?.symbol}
+                                {formatNumberByLanguage(getLanguageByCode(language), item.denomination.value * item.count)} {selectedCurrency.symbol}
                             </TableCell>
                         </TableRow>
                     ))}

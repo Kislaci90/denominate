@@ -1,17 +1,16 @@
 import React from 'react';
-import {AppBar, Box, FormControl, Icon, MenuItem, Select, Toolbar, Typography} from '@mui/material';
+import {AppBar, Box, FormControl, MenuItem, Select, Toolbar, Typography} from '@mui/material';
 import LanguageIcon from '@mui/icons-material/Language';
-import CalculateIcon from '@mui/icons-material/Calculate';
+import {translate} from "../i18n";
 
 type Language = { code: string; label: string };
 type Props = {
     language: string;
     setLanguage: (lang: string) => void;
     languages: Language[];
-    t: any;
 };
 
-const TopBar: React.FC<Props> = ({ language, setLanguage, languages, t }) => (
+const TopBar: React.FC<Props> = ({ language, setLanguage, languages}) => (
     <AppBar position="static" elevation={2} sx={{
         background: 'linear-gradient(135deg, #2E7D32 0%, #2E7D32 100%)',
         borderBottom: '1px solid rgba(255,255,255,0.1)'
@@ -23,7 +22,7 @@ const TopBar: React.FC<Props> = ({ language, setLanguage, languages, t }) => (
                     letterSpacing: 0.5,
                     display: { xs: 'none', sm: 'block' }
                 }}>
-                    {t.heroTitle[language]}
+                    {translate.heroTitle[language]}
                 </Typography>
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>

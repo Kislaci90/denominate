@@ -118,6 +118,10 @@ body, #root {
     color: #222;
 }
 
+.currency-select-form-control {
+    width: 240px !important;
+}
+
 .amount-input .MuiInputBase-root {
     font-size: 2rem !important;
     font-weight: 500 !important;

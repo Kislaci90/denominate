@@ -15,7 +15,7 @@ const CurrencySelector: React.FC<Props> = ({
                                                language,
                                            }) => {
     return (
-        <FormControl fullWidth variant="outlined" size="small">
+        <FormControl fullWidth variant="outlined" size="small" className="currency-select-form-control">
             <InputLabel id="currency-label">{translate.currencySelectLabel[language]}</InputLabel>
             <Select
                 labelId="currency-label"

@@ -20,7 +20,7 @@ export const currencies : Currency[] = [
     },
     {
         code: 'USD',
-        label: 'Dollár',
+        label: 'Dollar',
         symbol: '$',
         flagUrl: 'https://flagcdn.com/w40/us.png',
     },

@@ -10,8 +10,6 @@ export const translate: {
     denominate: Record<string, string>,
     denominateHelper: Record<string, string>,
     denominateHelperInvalid: Record<string, string>,
-    customizeTitle: Record<string, string>,
-    customizeDesc: Record<string, string>,
     bills: Record<string, string>,
     quantity: Record<string, string>,
     subResult: Record<string, string>,
@@ -25,6 +23,7 @@ export const translate: {
     noBreakdown: Record<string, string>,
     loadFromHistory: Record<string, AmountSymbolFn>,
     enterToSee: Record<string, string>,
+    cookie: Record<string, string>,
 } = {
     heroTitle: {
         en: 'Felváltom!',
@@ -55,12 +54,6 @@ export const translate: {
         de: 'Gib einen gültigen Betrag ein',
         hu: 'Adj meg egy érvényes összeget a folytatáshoz',
     },
-    customizeTitle: {en: 'Customize Bills & Coins', de: 'Scheine & Münzen anpassen', hu: 'Címletek testreszabása'},
-    customizeDesc: {
-        en: 'Click bills or coins below to enable or disable them for denomination.',
-        de: 'Klicke auf Scheine oder Münzen, um sie für die Stückelung zu aktivieren oder deaktivieren.',
-        hu: 'Kattints a címletekre, hogy engedélyezd vagy letiltsd őket a felbontáshoz.',
-    },
     bills: {en: 'Bills', de: 'Scheine', hu: 'Bankjegyek'},
     quantity: {en: 'Qty', de: 'Stück', hu: 'Darab'},
     subResult: {en: 'Subtotal', de: 'Zwischensumme', hu: 'Részeredmény'},
@@ -86,4 +79,9 @@ export const translate: {
         de: 'Gib einen Betrag und eine Währung ein, um die Aufteilung zu sehen.',
         hu: 'Adj meg egy összeget és pénznemet a bontáshoz.',
     },
+    cookie: {
+        en: 'This site uses Google Analytics to analyze site usage. We collect anonymous statistical data using cookies. These are only placed after your consent.',
+        de: 'Diese Seite verwendet Google Analytics, um die Seitennutzung zu analysieren. Wir sammeln anonyme statistische Daten mit Cookies. Diese werden nur nach Ihrer Zustimmung gesetzt.',
+        hu: 'Az oldal a Google Analytics szolgáltatást használja az oldalhasználat elemzésére. A sütik segítségével anonim statisztikai adatokat gyűjtünk. Ezeket csak az Ön hozzájárulása után helyezzük el.',
+    }
 };

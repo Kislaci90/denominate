@@ -131,10 +131,10 @@ function App() {
     return (
         <>
             <Helmet>
-                <title>Denomination Calculator</title>
+                <title>Felvaltom!</title>
                 <meta name="description"
                       content="Quickly calculate currency denominations. Supports HUF, EUR, and more."/>
-                <meta property="og:title" content="Denomination Calculator"/>
+                <meta property="og:title" content="Felvaltom!"/>
                 <meta property="og:description" content="Quickly calculate currency denominations."/>
                 <meta property="og:type" content="website"/>
                 <meta property="og:url" content="https://felvaltom.eu"/>

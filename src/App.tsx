@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState, useMemo} from 'react';
 import {Box, Typography} from '@mui/material';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import Cookies from 'js-cookie';
@@ -15,6 +15,8 @@ import {denominate, DenominateResult} from "./logic/denomination";
 import {currencies} from "./logic/currencies";
 import {getLanguageByCode} from "./logic/language";
 import {HistoryEntry} from "./logic/history";
+import {ReactComponent as LogoSvg} from './assets/logo.svg';
+import {Helmet} from 'react-helmet';
 
 const languages = [
     {code: 'hu', label: 'Magyar'},
@@ -83,7 +85,12 @@ function App() {
     }
 
     const isValid = pendingAmount !== '' && !isNaN(Number(pendingAmount.replace(',', '.'))) && Number(pendingAmount.replace(',', '.')) > 0;
-    let denominateResults: DenominateResult[] = [];
+    let denominateResults: DenominateResult[] = useMemo(() => {
+        if (isValid) {
+            return denominate(amount, currency);
+        }
+        return [];
+    }, [amount, currency, isValid]);
     if (isValid) {
         denominateResults = denominate(amount, currency);
     }
@@ -114,7 +121,7 @@ function App() {
             Cookies.set('denomination_history', JSON.stringify(newHist), {expires: 365});
             return newHist;
         });
-    }, [amount, selectedCurrency]);
+    }, [amount, selectedCurrency, isValid, denominateResults]);
 
     useEffect(() => {
         initGA();
@@ -122,79 +129,96 @@ function App() {
     }, []);
 
     return (
-        <ThemeProvider theme={theme}>
-            <TopBar
-                language={language}
-                setLanguage={setLanguage}
-                languages={languages}
-            />
+        <>
+            <Helmet>
+                <title>Denomination Calculator</title>
+                <meta name="description"
+                      content="Quickly calculate currency denominations. Supports HUF, EUR, and more."/>
+                <meta property="og:title" content="Denomination Calculator"/>
+                <meta property="og:description" content="Quickly calculate currency denominations."/>
+                <meta property="og:type" content="website"/>
+                <meta property="og:url" content="https://felvaltom.eu"/>
+            </Helmet>
 
-            <div className="landing-hero fade-in">
+            <ThemeProvider theme={theme}>
+                <TopBar
+                    language={language}
+                    setLanguage={setLanguage}
+                    languages={languages}
+                />
 
-                <Typography color={"primary"} variant="h2" component="h1" align="center" sx={{mb: 2}}>
-                    {translate.heroTitle[language]}
-                </Typography>
+                <div className="landing-hero fade-in">
 
-                <Box className="landing-feature">
-                    <Typography color="#666">
-                        {translate.heroSubtitle[language]}
-                    </Typography>
-                </Box>
+                    <Box display="flex" alignItems="center" justifyContent="space-between">
+                        <LogoSvg width={80} height={80}/>
 
-                <Box sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    gap: 2,
-                    width: '100%',
-                    maxWidth: {xs: 300, sm: 400, md: 600},
-                    mx: 'auto',
-                    px: 2
-                }}>
-                    <CurrencySelector currency={currency} onChange={setCurrency} language={language}/>
+                        <Typography color={"primary"} variant="h1" component="h1" align="center">
+                            {translate.heroTitle[language]}
+                        </Typography>
+                    </Box>
 
-                    <AmountInput
-                        value={pendingAmount}
-                        language={language}
-                        onAmountChange={handleAmountChange}
-                        onKeyDown={handleInputKeyDown}
-                        onClear={() => {
-                            setAmount(0)
-                            setPendingAmount("0");
-                        }}
-                        inputRef={amountInputRef}
-                    />
-                    <DenominateButton
-                        pendingAmountIsValid={isValid}
-                        handleDenominate={handleDenominate}
-                        language={language}
-                    />
-                </Box>
+                    <Box className="landing-feature">
+                        <Typography color="#666">
+                            {translate.heroSubtitle[language]}
+                        </Typography>
+                    </Box>
 
-            </div>
+                    <Box sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        gap: 2,
+                        width: '100%',
+                        maxWidth: {xs: 300, sm: 400, md: 600},
+                        mx: 'auto',
+                        px: 2
+                    }}>
+                        <CurrencySelector currency={currency} onChange={setCurrency} language={language}/>
 
-            <ResultArea
-                isValid={isValid}
-                denominationResult={denominateResults}
-                selectedCurrency={selectedCurrency}
-                amount={amount}
-                language={language}
-                ref={resultAreaRef}
-            />
+                        <AmountInput
+                            value={pendingAmount}
+                            language={language}
+                            onAmountChange={handleAmountChange}
+                            onKeyDown={handleInputKeyDown}
+                            onClear={() => {
+                                setAmount(0)
+                                setPendingAmount("0");
+                            }}
+                            inputRef={amountInputRef}
+                        />
+                        <DenominateButton
+                            pendingAmountIsValid={isValid}
+                            handleDenominate={handleDenominate}
+                            language={language}
+                        />
+                    </Box>
 
-            <HistoryList
-                history={history}
-                language={getLanguageByCode(language)}
-                setHistory={setHistory}
-                setPendingAmount={setPendingAmount}
-                setAmount={setAmount}
-                setCurrency={setCurrency}
-                resultAreaRef={resultAreaRef}
-            />
+                </div>
 
-            <div className="footer">© {new Date().getFullYear()} Denomination Calculator &middot; Made with ❤️</div>
-        </ThemeProvider>
-    );
+                <ResultArea
+                    isValid={isValid}
+                    denominationResult={denominateResults}
+                    selectedCurrency={selectedCurrency}
+                    amount={amount}
+                    language={language}
+                    ref={resultAreaRef}
+                />
+
+                <HistoryList
+                    history={history}
+                    language={getLanguageByCode(language)}
+                    setHistory={setHistory}
+                    setPendingAmount={setPendingAmount}
+                    setAmount={setAmount}
+                    setCurrency={setCurrency}
+                    resultAreaRef={resultAreaRef}
+                />
+
+                <div className="footer">© {new Date().getFullYear()} Denomination Calculator &middot; Made with ❤️</div>
+            </ThemeProvider>
+        </>
+    )
+        ;
 }
 
 export default App;

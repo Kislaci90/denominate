@@ -2,6 +2,7 @@ import React from 'react';
 import {AppBar, Box, FormControl, MenuItem, Select, Toolbar, Typography} from '@mui/material';
 import LanguageIcon from '@mui/icons-material/Language';
 import {translate} from "../i18n";
+import { ReactComponent as InverseLogoSvg } from '../assets/inverse_logo.svg';
 
 type Language = { code: string; label: string };
 type Props = {
@@ -17,6 +18,7 @@ const TopBar: React.FC<Props> = ({ language, setLanguage, languages}) => (
     }}>
         <Toolbar sx={{ justifyContent: 'space-between', px: { xs: 2, sm: 3 } }}>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                <InverseLogoSvg width={40} height={40} />
                 <Typography variant="h6" component="div" sx={{
                     fontWeight: 700,
                     letterSpacing: 0.5,

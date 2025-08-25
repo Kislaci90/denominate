@@ -62,6 +62,18 @@ export const USD_DENOMINATIONS: Denomination[] = [
     { value: 0.01, color: '#B87333', isCoin: true }
 ];
 
+export function roundTo5or0(amount: number) {
+    if (!Number.isInteger(amount)) {
+        return amount;
+    }
+
+    let remainder = amount % 10;
+
+    if (remainder <= 2 || remainder >=5 && remainder <= 7) return amount - (remainder % 5);
+
+    return amount + (5 - (remainder % 5));
+}
+
 export function denominate(amount: number, currency: string): DenominateResult[] {
     let denominations = getDenominationsForCurrency(currency);
 
@@ -69,8 +81,8 @@ export function denominate(amount: number, currency: string): DenominateResult[]
 
     const result: DenominateResult[] = [];
 
-    for (let i = 0; i < denominations.length; i++) {
-        const denomination = denominations[i];
+    for (const element of denominations) {
+        const denomination = element;
         const denominationValue = (currency === 'EUR' || currency === 'USD') ? Math.round(denomination.value * 100) : denomination.value;
         const count = Math.floor(remaining / denominationValue);
         if (count > 0) {

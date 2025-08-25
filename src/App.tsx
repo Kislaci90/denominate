@@ -6,15 +6,14 @@ import Footer from "./components/Footer";
 import {ThemeProvider} from "@mui/material/styles";
 import {Helmet} from "react-helmet";
 import TopBar from "./components/TopBar";
-import {languages} from "./logic/language";
 import CookieBanner from "./components/CookieBanner";
 import Cookies from "js-cookie";
 import {initGA, trackPageview} from "./utils/analytics";
+import './i18n';
 
 const App: React.FC = () => {
 
     const [showCookieNotice, setShowCookieNotice] = useState(false);
-    const [language, setLanguage] = useState('hu');
 
     function handleAcceptCookies() {
         Cookies.set('cookie_consent', 'true', {expires: 365});
@@ -40,16 +39,12 @@ const App: React.FC = () => {
                 <meta property="og:type" content="website"/>
                 <meta property="og:url" content="https://felvaltom.eu"/>
             </Helmet>
-            <ThemeProvider theme={theme}>
-                <TopBar
-                    language={language}
-                    setLanguage={setLanguage}
-                    languages={languages}
-                />
-                <Home language={language}/>
-                <Footer/>
-                <CookieBanner showCookieNotice={showCookieNotice} onAccept={handleAcceptCookies} language={language}/>
-            </ThemeProvider>
+                <ThemeProvider theme={theme}>
+                    <TopBar/>
+                    <Home/>
+                    <Footer/>
+                    <CookieBanner showCookieNotice={showCookieNotice} onAccept={handleAcceptCookies}/>
+                </ThemeProvider>
         </BrowserRouter>
     );
 };

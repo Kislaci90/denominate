@@ -24,6 +24,14 @@ export const translate: {
     loadFromHistory: Record<string, AmountSymbolFn>,
     enterToSee: Record<string, string>,
     cookie: Record<string, string>,
+    cookiePolicy: Record<string, string>,
+    cookiePolicyTypography: Record<string, string>,
+    privacyPolicy: Record<string, string>,
+    privacyPolicyTypography: Record<string, string>,
+    termsOfUse: Record<string, string>,
+    termsOfUseTypography: Record<string, string>,
+    impressum: Record<string, string>,
+    impressumTypography: Record<string, string>,
 } = {
     heroTitle: {
         en: 'Felváltom!',
@@ -31,9 +39,9 @@ export const translate: {
         hu: 'Felváltom!',
     },
     heroSubtitle: {
-        en: 'Enter the amount, and we’ll tell you how many banknotes and coins you need! Felvoltam is a quick and practical solution for handling cash — or just for curiosity.',
-        de: 'Gib den Betrag ein, und wir sagen dir, wie viele Geldscheine und Münzen du brauchst! Felvoltam ist eine schnelle und praktische Lösung für den Umgang mit Bargeld – oder einfach nur aus Neugier.',
-        hu: 'Add meg az összeget, mi pedig megmondjuk, mennyi bankjegyre és érmére van szükséged! A Felvoltam gyors, praktikus megoldás készpénzkezeléshez vagy csak kíváncsiságból.',
+        en: 'Enter the amount, and we’ll tell you how many banknotes and coins you need! Felvaltom! is a quick and practical solution for handling cash — or just for curiosity.',
+        de: 'Gib den Betrag ein, und wir sagen dir, wie viele Geldscheine und Münzen du brauchst! Felvaltom! ist eine schnelle und praktische Lösung für den Umgang mit Bargeld – oder einfach nur aus Neugier.',
+        hu: 'Add meg az összeget, mi pedig megmondjuk, mennyi bankjegyre és érmére van szükséged! A Felvaltom! gyors, praktikus megoldás készpénzkezeléshez vagy csak kíváncsiságból.',
     },
     currencySelectLabel: {en: 'Currency', de: 'Währung', hu: 'Pénznem'},
     inputLabel: {en: 'Amount', de: 'Betrag', hu: 'Összeg'},
@@ -55,7 +63,7 @@ export const translate: {
         hu: 'Adj meg egy érvényes összeget a folytatáshoz',
     },
     bills: {en: 'Bills', de: 'Scheine', hu: 'Bankjegyek'},
-    quantity: {en: 'Qty', de: 'Stück', hu: 'Darab'},
+    quantity: {en: 'Qty', de: 'Stück', hu: 'Db'},
     subResult: {en: 'Subtotal', de: 'Zwischensumme', hu: 'Részeredmény'},
     coins: {en: 'Coins', de: 'Münzen', hu: 'Érmék'},
     result: {en: 'Result', de: 'Ergebnis', hu: 'Eredmény'},
@@ -83,5 +91,46 @@ export const translate: {
         en: 'This site uses Google Analytics to analyze site usage. We collect anonymous statistical data using cookies. These are only placed after your consent.',
         de: 'Diese Seite verwendet Google Analytics, um die Seitennutzung zu analysieren. Wir sammeln anonyme statistische Daten mit Cookies. Diese werden nur nach Ihrer Zustimmung gesetzt.',
         hu: 'Az oldal a Google Analytics szolgáltatást használja az oldalhasználat elemzésére. A sütik segítségével anonim statisztikai adatokat gyűjtünk. Ezeket csak az Ön hozzájárulása után helyezzük el.',
-    }
+    },
+    cookiePolicy: {
+        en: 'Cookie Policy',
+        de: 'Cookie-Richtlinie',
+        hu: 'Süti szabályzat',
+    },
+    cookiePolicyTypography: {
+        en: 'This application uses cookies to enhance your experience and remember your preferences. Cookies are small text files stored on your device. You can manage or disable cookies in your browser settings at any time. Disabling cookies may affect some features of the application. For questions about our cookie usage, contact us at',
+        de: 'Diese Anwendung verwendet Cookies, um Ihre Erfahrung zu verbessern und Ihre Präferenzen zu speichern. Cookies sind kleine Textdateien, die auf Ihrem Gerät gespeichert werden. Sie können Cookies jederzeit in Ihren Browsereinstellungen verwalten oder deaktivieren. Das Deaktivieren von Cookies kann einige Funktionen der Anwendung beeinträchtigen. Bei Fragen zu unserer Cookie-Nutzung kontaktieren Sie uns unter',
+        hu: 'Ez az alkalmazás sütiket használ a felhasználói élmény javítása és a beállítások megjegyzése érdekében. A sütik kis szövegfájlok, amelyeket az eszközén tárolnak. A sütik kezelhetők vagy bármikor letilthatók a böngésző beállításaiban. A sütik letiltása befolyásolhatja az alkalmazás egyes funkcióit. Ha kérdése van a sütik használatával kapcsolatban, lépjen kapcsolatba velünk a következő címen:',
+    },
+    privacyPolicy: {
+        en: 'Privacy Policy',
+        de: 'Datenschutz-Bestimmungen',
+        hu: 'Adatvédelmi szabályzat',
+    },
+    privacyPolicyTypography: {
+        en: 'We value your privacy. This application does not collect personal data except for analytics purposes to improve user experience. Cookies may be used to remember your preferences. You can manage cookie settings at any time. For questions about your data, please contact us at',
+        de: 'Wir legen Wert auf Ihre Privatsphäre. Diese Anwendung sammelt keine persönlichen Daten, außer zu Analysezwecken, um die Benutzererfahrung zu verbessern. Cookies können verwendet werden, um Ihre Präferenzen zu speichern. Sie können die Cookie-Einstellungen jederzeit verwalten. Bei Fragen zu Ihren Daten kontaktieren Sie uns bitte unter',
+        hu: 'Fontos számunkra az Ön magánélete. Ez az alkalmazás nem gyűjt személyes adatokat, kivéve az elemzési célokat a felhasználói élmény javítása érdekében. A sütik segítségével megjegyezhetők a beállítások. A sütik beállításai bármikor kezelhetők. Ha kérdése van az adataival kapcsolatban, kérjük, lépjen kapcsolatba velünk a következő címen:',
+    },
+    termsOfUse: {
+        en: 'Terms of Use',
+        de: 'Nutzungsbedingungen',
+        hu: 'Felhasználási feltételek',
+    },
+    termsOfUseTypography: {
+        en: 'By using this application, you agree to comply with all applicable laws and regulations. The content provided is for informational purposes only. You are responsible for maintaining the confidentiality of your account and for all activities that occur under your account. For questions regarding these terms, contact us at',
+        de: 'Durch die Nutzung dieser Anwendung erklären Sie sich damit einverstanden, alle geltenden Gesetze und Vorschriften einzuhalten. Die bereitgestellten Inhalte dienen nur zu Informationszwecken. Sie sind verantwortlich für die Vertraulichkeit Ihres Kontos und für alle Aktivitäten, die unter Ihrem Konto stattfinden. Bei Fragen zu diesen Bedingungen kontaktieren Sie uns unter',
+        hu: 'Az alkalmazás használatával Ön elfogadja, hogy betartja az összes vonatkozó törvényt és előírást. A szolgáltatott tartalom kizárólag tájékoztatási célokat szolgál. Ön felelős a fiókja bizalmasságának megőrzéséért és minden olyan tevékenységért, amely a fiókja alatt történik. Ha kérdése van ezekkel a feltételekkel kapcsolatban, lépjen kapcsolatba velünk a következő címen:',
+    },
+    impressum: {
+        en: 'Impressum',
+        de: 'Impressum',
+        hu: 'Impresszum',
+    },
+    impressumTypography: {
+        en: 'This application is operated by [Your Company Name], located at [Your Address]. For inquiries, please contact us at [Your Contact Information].',
+        de: 'Diese Anwendung wird betrieben von [Ihr Firmenname], mit Sitz in [Ihre Adresse]. Für Anfragen kontaktieren Sie uns bitte unter [Ihre Kontaktinformationen].',
+        hu: 'Ezt az alkalmazást a [Cégnév] üzemelteti, székhelye: [Cím]. Kérdések esetén lépjen kapcsolatba velünk a következő címen: [Kapcsolati információk].',
+    },
+
 };

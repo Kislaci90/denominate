@@ -4,40 +4,37 @@ import '../App.css';
 import AmountInput from "../components/AmountInput";
 import DenominateButton from "../components/DenominateButton";
 import ResultArea from "../components/Result";
-import {translate} from '../i18n';
 import HistoryList from "../components/HistoryList";
 import CurrencySelector from "../components/CurrencySelector";
-import {denominate, DenominateResult} from "../logic/denomination";
+import {denominate, type DenominateResult, roundTo5or0} from "../logic/denomination";
 import {currencies} from "../logic/currencies";
-import {getLanguageByCode} from "../logic/language";
-import {HistoryEntry} from "../logic/history";
-import {ReactComponent as LogoSvg} from '../assets/logo.svg';
+import type {HistoryEntry} from "../logic/history";
 import {Route, Routes} from "react-router-dom";
 import PrivacyPolicy from "./PrivacyPolicy";
 import CookiePolicy from "./CookiePolicy";
 import TermsOfUse from "./TermsOfUse";
 import Impressum from "./Impressum";
 import {theme} from "../utils/theme";
+import {useTranslation} from "react-i18next";
 
-
-interface MainCalculatorProps {
-    language: string
-}
-
-function MainCalculator({language}: Readonly<MainCalculatorProps>) {
+function MainCalculator() {
     const [amount, setAmount] = useState(0);
     const [pendingAmount, setPendingAmount] = useState("0");
+    const [isValidPendingAmount, setIsValidPendingAmount] = useState(true);
     const [currency, setCurrency] = useState('HUF');
-    const [history, setHistory] = useState<any[]>([]);
+    const [history, setHistory] = useState<HistoryEntry[]>([]);
+    const {t, i18n} = useTranslation();
     const amountInputRef = useRef<HTMLInputElement>(null);
     const resultAreaRef = useRef<HTMLDivElement>(null);
 
     function handleAmountChange(e: React.ChangeEvent<HTMLInputElement>) {
+        const regex = /^\d+(?:[.,]\d+)?$/;
+        setIsValidPendingAmount(regex.test(e.target.value))
         setPendingAmount(e.target.value.replace(/[^0-9.,]/g, ''));
     }
 
     function handleDenominate() {
-        setAmount(parseFloat(pendingAmount.replace(',', '.')))
+        setAmount(roundTo5or0(parseFloat(pendingAmount.replace(',', '.'))))
         amountInputRef.current?.select();
     }
 
@@ -48,23 +45,26 @@ function MainCalculator({language}: Readonly<MainCalculatorProps>) {
     }
 
     const isValid = pendingAmount !== '' && !isNaN(Number(pendingAmount.replace(',', '.'))) && Number(pendingAmount.replace(',', '.')) > 0;
-    let denominateResults: DenominateResult[] = useMemo(() => {
+
+    const denominateResults: DenominateResult[] = useMemo(() => {
         if (isValid) {
             return denominate(amount, currency);
         }
         return [];
-    }, [amount, currency]);
+    }, [isValid, amount, currency]);
 
     useEffect(() => {
+        i18n.changeLanguage('hu');
+
         const stored = localStorage.getItem('denomination_history');
         if (stored) {
             try {
                 const parsed = JSON.parse(stored);
                 if (Array.isArray(parsed)) setHistory(parsed);
-            } catch {
+            } catch { /* empty */
             }
         }
-    }, []);
+    }, [i18n]);
 
     const selectedCurrency = currencies.find(c => c.code === currency) ?? currencies[0];
 
@@ -88,17 +88,17 @@ function MainCalculator({language}: Readonly<MainCalculatorProps>) {
         <>
             <div className="landing-hero fade-in">
 
-                <Box display="flex" alignItems="center" justifyContent="space-between">
-                    <LogoSvg width={80} height={80}/>
+                <Box display="flex" alignItems="center" justifyContent="space-between" sx={{mb: 4}}>
+                    {/*<Logo width={60} height={60}/>*/}
 
-                    <Typography color={theme.palette.primary.main} variant="h1" component="h1" align="center">
-                        {translate.heroTitle[language]}
+                    <Typography color={theme.palette.primary.main} variant="h2" component="h1" align="center">
+                        {t('heroTitle')}
                     </Typography>
                 </Box>
 
-                <Box className="landing-feature">
+                <Box className="landing-feature" sx={{display: {xs: 'none', sm: 'block'}}}>
                     <Typography color="#666">
-                        {translate.heroSubtitle[language]}
+                        {t('heroSubtitle')}
                     </Typography>
                 </Box>
 
@@ -112,11 +112,11 @@ function MainCalculator({language}: Readonly<MainCalculatorProps>) {
                     mx: 'auto',
                     px: 2
                 }}>
-                    <CurrencySelector currency={currency} onChange={setCurrency} language={language}/>
+                    <CurrencySelector currency={currency} onChange={setCurrency}/>
 
                     <AmountInput
                         value={pendingAmount}
-                        language={language}
+                        isValid={isValidPendingAmount}
                         onAmountChange={handleAmountChange}
                         onKeyDown={handleInputKeyDown}
                         onClear={() => {
@@ -128,7 +128,6 @@ function MainCalculator({language}: Readonly<MainCalculatorProps>) {
                     <DenominateButton
                         pendingAmountIsValid={isValid}
                         handleDenominate={handleDenominate}
-                        language={language}
                     />
                 </Box>
 
@@ -139,13 +138,11 @@ function MainCalculator({language}: Readonly<MainCalculatorProps>) {
                 denominationResult={denominateResults}
                 selectedCurrency={selectedCurrency}
                 amount={amount}
-                language={language}
                 ref={resultAreaRef}
             />
 
             <HistoryList
                 history={history}
-                language={getLanguageByCode(language)}
                 setHistory={setHistory}
                 setPendingAmount={setPendingAmount}
                 setAmount={setAmount}
@@ -156,14 +153,10 @@ function MainCalculator({language}: Readonly<MainCalculatorProps>) {
     );
 }
 
-interface HomeProps {
-    language: string
-}
-
-function Home({language}: Readonly<HomeProps>) {
+function Home() {
     return (
         <Routes>
-            <Route path="/" element={<MainCalculator language={language}/>}/>
+            <Route path="/" element={<MainCalculator/>}/>
             <Route path="/privacy-policy" element={<PrivacyPolicy/>}/>
             <Route path="/cookie-policy" element={<CookiePolicy/>}/>
             <Route path="/terms-of-use" element={<TermsOfUse/>}/>

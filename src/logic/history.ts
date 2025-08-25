@@ -1,5 +1,5 @@
-import {DenominateResult} from "./denomination";
-import {Currency} from "./currencies";
+import type {DenominateResult} from "./denomination";
+import type {Currency} from "./currencies";
 
 export type HistoryEntry = {
     amount: number;
@@ -9,5 +9,5 @@ export type HistoryEntry = {
 };
 
 export function showHistoryEntriesAsList(historyEntry: HistoryEntry) {
-    return historyEntry.denominationResult.map((item: any, i: number) => `${item.count} × ${item.denomination.value}${historyEntry.currency.symbol}`).join(', ');
+    return historyEntry.denominationResult.map((item: DenominateResult) => `${item.count} × ${item.denomination.value}${historyEntry.currency.symbol}`).join(', ');
 }

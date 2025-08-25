@@ -1,25 +1,28 @@
-import React, {RefObject} from 'react';
+import React, {type RefObject} from 'react';
 import {Box, IconButton, InputAdornment, TextField, Tooltip} from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
-import {translate} from "../i18n";
+import {useTranslation} from "react-i18next";
 
 type Props = {
-    value: string;
-    language: string;
-    onAmountChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
-    onClear: () => void;
-    inputRef: RefObject<HTMLInputElement | null>;
+    value: string,
+    onAmountChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void,
+    onClear: () => void,
+    inputRef: RefObject<HTMLInputElement | null>,
+    isValid?: boolean
 };
 
 const AmountInput: React.FC<Props> = ({
                                           value,
-                                          language,
                                           onAmountChange,
                                           onKeyDown,
                                           onClear,
-                                          inputRef
+                                          inputRef,
+                                          isValid
                                       }) => {
+
+    const { t } = useTranslation();
+
     return (
         <Box sx={{
             display: 'flex',
@@ -29,11 +32,11 @@ const AmountInput: React.FC<Props> = ({
             flexDirection: 'row',
             justifyContent: 'center',
         }}>
-            <Tooltip title={translate.inputTooltip[language]} arrow placement="top">
+            <Tooltip title={t('inputTooltip')} arrow placement="top">
                 <TextField
                     className="amount-input"
                     type="text"
-                    label={translate.inputLabel[language]}
+                    label={t('inputLabel')}
                     value={value}
                     onChange={onAmountChange}
                     onKeyDown={onKeyDown}
@@ -44,14 +47,15 @@ const AmountInput: React.FC<Props> = ({
                     inputRef={inputRef}
                     aria-describedby="amount-helper-text"
                     InputProps={{
+                        error: isValid === false,
                         endAdornment: (
                             <InputAdornment position="end">
                                 {value ? (
-                                    <Tooltip title={translate.clear[language]} arrow>
+                                    <Tooltip title={t('clear')} arrow>
                                         <IconButton
                                             size="small"
                                             onClick={onClear}
-                                            aria-label={translate.clear[language]}
+                                            aria-label={t('clear')}
                                             sx={{
                                                 '&:hover': {
                                                     backgroundColor: 'rgba(108, 99, 255, 0.1)'

@@ -1,26 +1,26 @@
 import React from 'react';
 import {Avatar, Box, FormControl, InputLabel, ListItemIcon, ListItemText, MenuItem, Select} from '@mui/material';
 import {currencies} from "../logic/currencies";
-import {translate} from "../i18n";
+import {useTranslation} from "react-i18next";
 
 type Props = {
     currency: string;
     onChange: (lang: string) => void;
-    language: string;
 };
 
 const CurrencySelector: React.FC<Props> = ({
                                                currency,
                                                onChange,
-                                               language,
                                            }) => {
+    const { t } = useTranslation();
+
     return (
         <FormControl fullWidth variant="outlined" size="small" className="currency-select-form-control">
-            <InputLabel id="currency-label">{translate.currencySelectLabel[language]}</InputLabel>
+            <InputLabel id="currency-label">{t('currencySelectLabel')}</InputLabel>
             <Select
                 labelId="currency-label"
                 value={currency}
-                label={translate.currencySelectLabel[language]}
+                label={t('currencySelectLabel')}
                 className="currency-select"
                 onChange={(e) => onChange(e.target.value)}
                 renderValue={(selected) => {

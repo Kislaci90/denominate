@@ -1,7 +1,8 @@
 import React from "react";
-import {Box, Divider, Paper, Typography} from "@mui/material";
+import {Box, Divider, List, ListItem, Paper, Typography} from "@mui/material";
 import {theme} from "../utils/theme";
 import {useTranslation} from "react-i18next";
+import { Business } from "@mui/icons-material";
 
 const Impressum: React.FC = () => {
     const {t} = useTranslation();
@@ -20,14 +21,28 @@ const Impressum: React.FC = () => {
                     borderColor: "divider",
                 }}>
                 <Typography variant="h4" color={theme.palette.primary.main} gutterBottom>
-                    {t('impressum')}
+                    <Business fontSize="large"></Business> {t('impressum.title')}
                 </Typography>
-                <Divider sx={{mb: 3}}/>
-                <Typography variant="body1">
-                    {t('impressumTypography')}
-                </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{mt: 4}}>
+                <strong>{t('impressum.title')} - felvaltom.eu</strong>
+
+                <Typography variant="body2" color="text.secondary" sx={{mb: 4}}>
                     Last updated: Aug 2025
+                </Typography>
+
+                <Divider sx={{mb: 3}}/>
+
+                <Typography variant="body1" gutterBottom sx={{ mb: 2 }}>
+                    <List dense sx={{
+                        listStyleType: 'disc',
+                        listStylePosition: 'inside'
+                    }}>
+                        <ListItem sx={{ display: 'list-item' }}><strong>{t('impressum.operator')}</strong> {t('impressum.individual')} </ListItem>
+                        <ListItem sx={{ display: 'list-item' }}><strong>{t('impressum.email')}</strong> info@felvaltom.eu </ListItem>
+                        <ListItem sx={{ display: 'list-item' }}><strong>{t('impressum.webpage')}</strong> https://felvaltom.eu </ListItem>
+                        <ListItem sx={{ display: 'list-item' }}><strong>{t('impressum.headquarters')}</strong> Budapest</ListItem>
+                    </List>
+
+                    {t('impressum.important')}
                 </Typography>
             </Paper>
         </Box>

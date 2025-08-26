@@ -58,7 +58,7 @@ const HistoryList: React.FC<Props> = ({
                 <List className="history-list">
                     {history.map((historyEntry, index) => (
                         <Tooltip
-                            title={t('loadFromHistory', (formatNumberByLanguage(i18n.language, Number(historyEntry.amount)), historyEntry.currency.symbol))}
+                            title={t('loadFromHistory', {amt: formatNumberByLanguage(i18n.language, Number(historyEntry.amount)), sym: historyEntry.currency.symbol})}
                             arrow key={index}>
                             <ListItem
                                 alignItems="flex-start"
@@ -73,7 +73,7 @@ const HistoryList: React.FC<Props> = ({
                                     }, 100);
                                 }}
                                 tabIndex={0}
-                                aria-label={t('loadFromHistory', (formatNumberByLanguage(i18n.language, Number(historyEntry.amount)), historyEntry.currency.symbol))}
+                                aria-label={t('loadFromHistory', {amt: formatNumberByLanguage(i18n.language, Number(historyEntry.amount)), sym: historyEntry.currency.symbol})}
                             >
                                 <ListItemIcon className="history-list-item-icon" sx={{minWidth: 36}}>
                                 <span style={{fontSize: 22}}>

@@ -8,6 +8,11 @@ body, #root {
     background-color: #F5F5F5;
 }
 
+strong {
+    font-weight: 600;
+    color: #444 !important;
+}
+
 .landing-hero {
     display: flex;
     flex-direction: column;

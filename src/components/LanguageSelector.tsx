@@ -1,17 +1,19 @@
-import {Box, FormControl, MenuItem, Select} from "@mui/material";
+import {Avatar, Box, FormControl, MenuItem, Select} from "@mui/material";
 import LanguageIcon from "@mui/icons-material/Language";
 import {useTranslation} from "react-i18next";
+import React from "react";
 
 type Language = {
     code: string;
     label: string;
     longCode: string;
+    flagUrl: string;
 }
 
 const languages: Language[] = [
-    {code: 'hu', label: 'Magyar', longCode: 'hu-HU'},
-    {code: 'en', label: 'English', longCode: 'en-US'},
-    {code: 'de', label: 'Deutsch', longCode: 'de-DE'},
+    {code: 'hu', label: 'Magyar', longCode: 'hu-HU', flagUrl: 'https://flagcdn.com/w40/hu.png',},
+    {code: 'en', label: 'English', longCode: 'en-US', flagUrl: 'https://flagcdn.com/w40/us.png',},
+    {code: 'de', label: 'Deutsch', longCode: 'de-DE', flagUrl: 'https://flagcdn.com/w40/de.png',},
 ];
 
 const LanguageSelector = () => {
@@ -44,7 +46,12 @@ const LanguageSelector = () => {
             >
                 {languages.map((lang) => (
                     <MenuItem key={lang.code} value={lang.code} sx={{py: 1}}>
-                        {lang.label}
+                        <Avatar
+                            src={lang.flagUrl}
+                            alt={lang.code}
+                            sx={{width: 20, height: 14, borderRadius: 1, mr: 1}}
+                        />
+                        <span>{lang.label}</span>
                     </MenuItem>
                 ))}
             </Select>

@@ -22,6 +22,11 @@ const App: React.FC = () => {
         trackPageview(window.location.pathname);
     }
 
+    function handleDeclineCookies() {
+        Cookies.set('cookie_consent', 'false', {expires: 365});
+        setShowCookieNotice(false);
+    }
+
     useEffect(() => {
         if (!Cookies.get('cookie_consent')) {
             setShowCookieNotice(true);
@@ -43,7 +48,7 @@ const App: React.FC = () => {
                     <TopBar/>
                     <Home/>
                     <Footer/>
-                    <CookieBanner showCookieNotice={showCookieNotice} onAccept={handleAcceptCookies}/>
+                    <CookieBanner showCookieNotice={showCookieNotice} onAccept={handleAcceptCookies} onDecline={handleDeclineCookies}/>
                 </ThemeProvider>
         </BrowserRouter>
     );

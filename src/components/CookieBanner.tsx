@@ -1,13 +1,14 @@
-import {Snackbar, Alert, Button} from '@mui/material';
+import {Snackbar, Alert, Button, Box} from '@mui/material';
 import {theme} from "../utils/theme";
 import {useTranslation} from "react-i18next";
 
 interface CookieBannerProps {
     showCookieNotice: boolean;
     onAccept: () => void;
+    onDecline: () => void;
 }
 
-const CookieBanner: React.FC<CookieBannerProps> = ({showCookieNotice, onAccept}) => {
+const CookieBanner: React.FC<CookieBannerProps> = ({showCookieNotice, onAccept, onDecline}) => {
     const { t } = useTranslation();
 
     return(
@@ -26,24 +27,41 @@ const CookieBanner: React.FC<CookieBannerProps> = ({showCookieNotice, onAccept})
                     borderRadius: 2,
                 }}
                 action={
-                    <Button
-                        color="inherit"
-                        size="medium"
-                        onClick={onAccept}
-                        sx={{
-                            color: theme.palette.primary.main,
-                            bgcolor: '#fff',
-                            border: '1px solid ' + theme.palette.primary.main,
-                            '&:hover': {
-                                bgcolor: '#f5f5f5',
-                            },
-                        }}
-                    >
-                        Accept
-                    </Button>
+                    <Box sx={{ display: 'flex', gap: 1 }}>
+                        <Button
+                            color="inherit"
+                            size="medium"
+                            onClick={onDecline}
+                            sx={{
+                                color: '#fff',
+                                border: '1px solid #fff',
+                                bgcolor: 'transparent',
+                                '&:hover': {
+                                    bgcolor: 'rgba(255,255,255,0.1)',
+                                },
+                            }}
+                        >
+                            {t('cookie.decline')}
+                        </Button>
+                        <Button
+                            color="inherit"
+                            size="medium"
+                            onClick={onAccept}
+                            sx={{
+                                color: theme.palette.primary.main,
+                                bgcolor: '#fff',
+                                border: '1px solid ' + theme.palette.primary.main,
+                                '&:hover': {
+                                    bgcolor: '#f5f5f5',
+                                },
+                            }}
+                        >
+                            {t('cookie.accept')}
+                        </Button>
+                    </Box>
                 }
             >
-                {t('cookie')}
+                {t('cookie.notification')}
             </Alert>
         </Snackbar>
     );

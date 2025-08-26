@@ -21,13 +21,100 @@
   "noBreakdown": "Nincs bontás",
   "loadFromHistory": "{{amt}} {{sym}} betöltése az előzményekből",
   "enterToSee": "Adj meg egy összeget és pénznemet a bontáshoz.",
-  "cookie": "Az oldal a Google Analytics szolgáltatást használja az oldalhasználat elemzésére. A sütik segítségével anonim statisztikai adatokat gyűjtünk. Ezeket csak az Ön hozzájárulása után helyezzük el.",
-  "cookiePolicy": "Süti szabályzat",
-  "cookiePolicyTypography": "Ez az alkalmazás sütiket használ a felhasználói élmény javítása és a beállítások megjegyzése érdekében. A sütik kis szövegfájlok, amelyeket az eszközén tárolnak. A sütik kezelhetők vagy bármikor letilthatók a böngésző beállításaiban. A sütik letiltása befolyásolhatja az alkalmazás egyes funkcióit. Ha kérdése van a sütik használatával kapcsolatban, lépjen kapcsolatba velünk a következő címen:",
-  "privacyPolicy": "Adatvédelmi szabályzat",
-  "privacyPolicyTypography": "Ez az alkalmazás nem gyűjt személyes adatokat. Az összeg és a pénznem, amelyet megad, csak a helyi eszközön kerül feldolgozásra, és nem kerül továbbításra vagy tárolásra külső szervereken. Az alkalmazás használata során keletkező adatok (például az előzmények) helyileg tárolódnak a böngészőben, és csak az Ön eszközén érhetők el. Nem használunk harmadik féltől származó szolgáltatásokat vagy könyvtárakat, amelyek személyes adatokat gyűjtenének vagy továbbítanának. Ha kérdése van az adatvédelemmel kapcsolatban, lépjen kapcsolatba velünk a következő címen:",
-  "termsOfUse": "Felhasználási feltételek",
-  "termsOfUseTypography": "Az alkalmazás használatával Ön elfogadja, hogy betartja az összes vonatkozó törvényt és rendeletet. A szolgáltatás tartalma kizárólag tájékoztató jellegű. Ön felelős a fiókja bizalmas kezeléséért és minden olyan tevékenységért, amely a fiókja alatt történik. Ha kérdése van ezekkel a feltételekkel kapcsolatban, lépjen kapcsolatba velünk a következő címen:",
-  "impressum": "Impresszum",
-  "impressumTypography": "Ezt az alkalmazást a [Cégnév] üzemelteti, székhelye: [Cím]. Kérdésekkel forduljon hozzánk a következő címen: [Kapcsolati információk]."
+  "cookie": {
+    "notification": "Ez az alkalmazás sütiket használ a felhasználói élmény javítása érdekében.",
+    "accept": "Elfogadom",
+    "decline": "Elutasítom"
+  },
+  "cookiePolicy": {
+    "title": "Süti szabályzat",
+    "intro": "Ez a weboldal sütiket (cookie-kat) használ annak érdekében, hogy javítsa a felhasználói élményt és anonim statisztikákat gyűjtsön.",
+    "whatAreCookies": {
+      "title": "Mik azok a sütik?",
+      "content": "A sütik olyan kis szövegfájlok, amelyeket a weboldal helyez el a látogató számítógépén vagy eszközén, hogy információkat tároljon a böngészésről."
+    },
+    "whatCookiesWeUse": {
+      "title": "Milyen sütiket használunk?",
+      "basicCookie": "<strong>Alapvető működéshez szükséges sütik</strong> – ezek elengedhetetlenek az oldal technikai működéséhez.",
+      "analyticsCookie": "<strong>Analitikai sütik (Google Analytics)</strong> – ezek segítenek megérteni, hogyan használják a látogatók a weboldalt (pl. oldallátogatások száma, időtartama)."
+    },
+    "managingCookies": {
+      "title": "Hogyan kezelheti a sütiket?",
+      "content": "A legtöbb böngésző lehetőséget biztosít a sütik letiltására vagy törlésére. Kérjük, vegye figyelembe, hogy a sütik letiltása befolyásolhatja a weboldal működését."
+    },
+    "googleAnalytics": {
+      "title": "Google Analytics",
+      "content": "Az oldal a Google Analytics szolgáltatást használja anonim statisztikai adatok gyűjtésére. A Google adatvédelmi irányelveiről itt olvashat:"
+    }
+  },
+  "privacyPolicy": {
+    "title": "Adatvédelmi szabályzat",
+    "intro": "Ez az adatvédelmi szabályzat bemutatja, hogyan kezeljük a weboldalon keresztül gyűjtött személyes adatokat.",
+    "dataControllerData": {
+      "title": "Adatkezelő adatai",
+      "name": "Név:",
+      "individual": "„A weboldalt magánszemély üzemelteti.”",
+      "email": "E-mail:",
+      "webpage": "Weboldal:"
+    },
+    "collectedData": {
+      "title": "Gyűjtött adatok",
+      "ip": "IP-cím",
+      "browserData": "Böngészési adatok (pl. oldallátogatások, eszköz típusa, földrajzi hely közelítőleg)",
+      "important": "Fontos: Az adatgyűjtés kizárólag a Google Analytics rendszerén keresztül történik, anonim módon."
+    },
+    "goalOfDataProcessing": {
+      "title": "Adatkezelés célja",
+      "working": "A weboldal működésének biztosítása",
+      "statistics": "Látogatottsági statisztikák készítése"
+    },
+    "dataForwarding" : {
+      "title": "Adattovábbítás",
+      "content": "A Google mint adatfeldolgozó működik közre. Az adatkezelés a Google szerverein is történhet, az Európai Unión kívül is. A Google megfelel a vonatkozó GDPR követelményeknek."
+    },
+    "dataRetention" : {
+      "title": "Adatmegőrzés",
+      "content": "A statisztikai adatokat a Google Analytics alapértelmezett ideig őrzi meg (pl. 14 hónap). Az adatkezelő nem gyűjt személyes azonosításra alkalmas adatokat."
+    },
+    "userRights" : {
+      "title": "Felhasználói jogok",
+      "content": "A felhasználónak joga van:",
+      "request" : "tájékoztatást kérni az adatkezelésről,",
+      "denies" : "tiltakozni az adatkezelés ellen,",
+      "complain" : "panasszal élni a Nemzeti Adatvédelmi és Információszabadság Hatóságnál (https://naih.hu)"
+    }
+  },
+  "termsOfUse": {
+    "title": "Felhasználási feltételek",
+    "serviceDescription": {
+      "title": "Szolgáltatás leírása",
+      "content": "A felvaltom.eu lehetőséget biztosít arra, hogy a látogatók információkat találjanak a pénz (bankjegyek és érmék) felváltásáról. Az oldal tájékoztató jellegű, tényleges pénzváltást nem végez."
+    },
+    "LimitationOfLiability": {
+      "title": "Felelősség korlátozása",
+      "content": "A szolgáltató nem vállal felelősséget az oldalon található információk pontosságáért, teljességéért vagy az esetleges működési zavarokból eredő károkért."
+    },
+    "userObligations": {
+      "title": "Felhasználói kötelezettségek",
+      "content": "A felhasználó köteles az oldalt jogszerű módon használni, nem akadályozhatja annak működését, és nem élhet vissza az elérhető információkkal."
+    },
+    "intellectualProperty": {
+      "title": "Szellemi tulajdon",
+      "content": "Az oldalon található szövegek, képek és más tartalmak szerzői jogvédelem alatt állnak, azokat kizárólag a szolgáltató engedélyével lehet felhasználni."
+    },
+    "changes": {
+      "title": "Módosítások",
+      "content": "A szolgáltató fenntartja a jogot a felhasználási feltételek módosítására. Az aktuális verzió mindig elérhető a weboldalon."
+    }
+  },
+  "impressum": {
+    "title": "Impresszum",
+    "operator" : "Weboldal üzemeltetője:",
+    "individual" : "A weboldalt magánszemély üzemelteti.",
+    "email" : "Kapcsolattartó e-mail cím:",
+    "webpage" : "Weboldal címe:",
+    "headquarters" : "Székhely:",
+    "important" : "Ez az oldal kizárólag tájékoztató jellegű, nem minősül hivatalos pénzváltó szolgáltatásnak."
+
+  }
 }

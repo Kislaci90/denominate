@@ -21,13 +21,98 @@
   "noBreakdown": "Keine Aufteilung",
   "loadFromHistory": "{{amt}} {{sym}} aus dem Verlauf laden",
   "enterToSee": "Gib einen Betrag und eine Währung ein, um die Aufteilung zu sehen.",
-  "cookie": "Diese Seite verwendet Google Analytics, um die Seitennutzung zu analysieren. Wir sammeln anonyme statistische Daten mit Cookies. Diese werden nur nach Ihrer Zustimmung gesetzt.",
-  "cookiePolicy": "Cookie-Richtlinie",
-  "cookiePolicyTypography": "Diese Anwendung verwendet Cookies, um Ihre Erfahrung zu verbessern und Ihre Präferenzen zu speichern. Cookies sind kleine Textdateien, die auf Ihrem Gerät gespeichert werden. Sie können Cookies jederzeit in Ihren Browsereinstellungen verwalten oder deaktivieren. Das Deaktivieren von Cookies kann einige Funktionen der Anwendung beeinträchtigen. Bei Fragen zu unserer Cookie-Nutzung kontaktieren Sie uns unter",
-  "privacyPolicy": "Datenschutz-Bestimmungen",
-  "privacyPolicyTypography": "Wir legen Wert auf Ihre Privatsphäre. Diese Anwendung sammelt keine persönlichen Daten, außer zu Analysezwecken, um die Benutzererfahrung zu verbessern. Cookies können verwendet werden, um Ihre Präferenzen zu speichern. Sie können die Cookie-Einstellungen jederzeit verwalten. Bei Fragen zu Ihren Daten kontaktieren Sie uns bitte unter",
-  "termsOfUse": "Nutzungsbedingungen",
-  "termsOfUseTypography": "Durch die Nutzung dieser Anwendung erklären Sie sich damit einverstanden, alle geltenden Gesetze und Vorschriften einzuhalten. Die bereitgestellten Inhalte dienen nur zu Informationszwecken. Sie sind verantwortlich für die Vertraulichkeit Ihres Kontos und für alle Aktivitäten, die unter Ihrem Konto stattfinden. Bei Fragen zu diesen Bedingungen kontaktieren Sie uns unter",
-  "impressum": "Impressum",
-  "impressumTypography": "Diese Anwendung wird betrieben von [Ihr Firmenname], mit Sitz in [Ihre Adresse]. Für Anfragen kontaktieren Sie uns bitte unter [Ihre Kontaktinformationen]."
-}
+  "cookie": {
+    "notification": "Diese Website verwendet Cookies, um die Benutzererfahrung zu verbessern.",
+    "accept": "Akzeptieren",
+    "decline": "Ablehnen"
+  },
+  "cookiePolicy": {
+    "title": "Cookie-Richtlinie",
+    "intro": "Diese Website verwendet Cookies, um die Benutzererfahrung zu verbessern und anonyme Statistiken zu sammeln.",
+    "whatAreCookies": {
+      "title": "Was sind Cookies?",
+      "content": "Cookies sind kleine Textdateien, die von der Website auf dem Gerät des Nutzers gespeichert werden, um Informationen über den Besuch zu speichern."
+    },
+    "whatCookiesWeUse": {
+      "title": "Welche Cookies verwenden wir?",
+      "basicCookie": "<strong>Notwendige Cookies</strong> – Diese sind für den technischen Betrieb der Website unerlässlich.",
+      "analyticsCookie": "<strong>Analytische Cookies (Google Analytics)</strong> – Diese helfen uns zu verstehen, wie Besucher die Website nutzen (z. B. Seitenaufrufe, Verweildauer)."
+    },
+    "managingCookies": {
+      "title": "Wie können Sie Cookies verwalten?",
+      "content": "Die meisten Browser ermöglichen es, Cookies zu deaktivieren oder zu löschen. Bitte beachten Sie, dass dies die Funktionalität der Website beeinträchtigen kann."
+    },
+    "googleAnalytics": {
+      "title": "Google Analytics",
+      "content": "Diese Website verwendet Google Analytics zur anonymen Erhebung statistischer Daten. Die Datenschutzrichtlinie von Google finden Sie hier:"
+    }
+  },
+  "privacyPolicy": {
+    "title": "Datenschutzerklärung",
+    "intro": "Diese Datenschutzerklärung erläutert, wie wir personenbezogene Daten verarbeiten, die über diese Website erhoben werden.",
+    "dataControllerData": {
+      "title": "Verantwortlicher",
+      "name": "Name:",
+      "individual": "„Die Website wird von einer Privatperson betrieben.“",
+      "email": "E-Mail:",
+      "webpage": "Website:"
+    },
+    "collectedData": {
+      "title": "Erhobene Daten",
+      "ip": "IP-Adresse",
+      "browserData": "Browserdaten (z. B. Seitenbesuche, Gerätetyp, ungefährer Standort)",
+      "important": "Wichtig: Die Datenerhebung erfolgt ausschließlich anonym über Google Analytics."
+    },
+    "goalOfDataProcessing": {
+      "title": "Zweck der Datenverarbeitung",
+      "working": "Sicherstellung der Funktion der Website",
+      "statistics": "Erstellung von Besucherstatistiken"
+    },
+    "dataForwarding": {
+      "title": "Datenübermittlung",
+      "content": "Google agiert als Auftragsverarbeiter. Die Datenverarbeitung kann auf Servern außerhalb der EU erfolgen. Google entspricht den Anforderungen der DSGVO."
+    },
+    "dataRetention": {
+      "title": "Datenspeicherung",
+      "content": "Statistische Daten werden für die von Google Analytics festgelegte Standarddauer gespeichert (z. B. 14 Monate). Es werden keine personenbezogenen Daten erhoben."
+    },
+    "userRights": {
+      "title": "Rechte der Nutzer",
+      "content": "Nutzer haben das Recht:",
+      "request": "Auskunft über die Datenverarbeitung zu verlangen,",
+      "denies": "der Verarbeitung zu widersprechen,",
+      "complain": "Beschwerde bei der ungarischen Datenschutzbehörde einzureichen (https://naih.hu)"
+    }
+  },
+  "termsOfUse": {
+    "title": "Nutzungsbedingungen",
+    "serviceDescription": {
+      "title": "Beschreibung des Dienstes",
+      "content": "Felvaltom.eu bietet Informationen zum Umtausch von Banknoten und Münzen. Die Website dient ausschließlich Informationszwecken und bietet keinen tatsächlichen Geldwechselservice an."
+    },
+    "LimitationOfLiability": {
+      "title": "Haftungsbeschränkung",
+      "content": "Der Betreiber übernimmt keine Gewähr für die Richtigkeit oder Vollständigkeit der Informationen oder für Schäden, die durch Fehler oder Unterbrechungen entstehen."
+    },
+    "userObligations": {
+      "title": "Pflichten der Nutzer",
+      "content": "Die Nutzer müssen die Website rechtmäßig nutzen, deren Betrieb nicht beeinträchtigen und die verfügbaren Informationen nicht missbrauchen."
+    },
+    "intellectualProperty": {
+      "title": "Geistiges Eigentum",
+      "content": "Alle Texte, Bilder und Inhalte auf der Website sind urheberrechtlich geschützt und dürfen nur mit Genehmigung des Betreibers verwendet werden."
+    },
+    "changes": {
+      "title": "Änderungen",
+      "content": "Der Betreiber behält sich das Recht vor, diese Nutzungsbedingungen zu ändern. Die aktuelle Version ist stets auf der Website verfügbar."
+    }
+  },
+  "impressum": {
+    "title": "Impressum",
+    "operator": "Website-Betreiber:",
+    "individual": "Die Website wird von einer Privatperson betrieben.",
+    "email": "Kontakt-E-Mail:",
+    "webpage": "Website:",
+    "headquarters": "Anschrift:",
+    "important": "Diese Website dient ausschließlich Informationszwecken und stellt keinen offiziellen Geldwechselservice dar."
+  }}

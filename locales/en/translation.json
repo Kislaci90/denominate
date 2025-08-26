@@ -21,13 +21,98 @@
   "noBreakdown": "No breakdown",
   "loadFromHistory": "Load {{amt}} {{sym}} from history",
   "enterToSee": "Enter an amount and currency to see the breakdown.",
-  "cookie": "This site uses Google Analytics to analyze site usage. We collect anonymous statistical data using cookies. These are only placed after your consent.",
-  "cookiePolicy": "Cookie Policy",
-  "cookiePolicyTypography": "This application uses cookies to enhance your experience and remember your preferences. Cookies are small text files stored on your device. You can manage or disable cookies in your browser settings at any time. Disabling cookies may affect some features of the application. For questions about our cookie usage, contact us at",
-  "privacyPolicy": "Privacy Policy",
-  "privacyPolicyTypography": "We value your privacy. This application does not collect personal data except for analytics purposes to improve user experience. Cookies may be used to remember your preferences. You can manage cookie settings at any time. For questions about your data, please contact us at",
-  "termsOfUse": "Terms of Use",
-  "termsOfUseTypography": "By using this application, you agree to comply with all applicable laws and regulations. The content provided is for informational purposes only. You are responsible for maintaining the confidentiality of your account and for all activities that occur under your account. For questions regarding these terms, contact us at",
-  "impressum": "Impressum",
-  "impressumTypography": "This application is operated by [Your Company Name], located at [Your Address]. For inquiries, please contact us at [Your Contact Information]."
-}
+  "cookie": {
+    "notification": "This website uses cookies to enhance the user experience.",
+    "accept": "Accept",
+    "decline": "Decline"
+  },
+  "cookiePolicy": {
+    "title": "Cookie Policy",
+    "intro": "This website uses cookies to enhance the user experience and collect anonymous statistics.",
+    "whatAreCookies": {
+      "title": "What are cookies?",
+      "content": "Cookies are small text files stored on the user's device by the website to save browsing information."
+    },
+    "whatCookiesWeUse": {
+      "title": "What cookies do we use?",
+      "basicCookie": "<strong>Essential cookies</strong> – These are necessary for the technical functioning of the site.",
+      "analyticsCookie": "<strong>Analytical cookies (Google Analytics)</strong> – These help us understand how visitors use the website (e.g., number of page views, time spent)."
+    },
+    "managingCookies": {
+      "title": "How can you manage cookies?",
+      "content": "Most browsers allow you to disable or delete cookies. Please note that disabling cookies may affect the functionality of the website."
+    },
+    "googleAnalytics": {
+      "title": "Google Analytics",
+      "content": "This site uses Google Analytics to collect anonymous statistical data. You can read Google's privacy policy here:"
+    }
+  },
+  "privacyPolicy": {
+    "title": "Privacy Policy",
+    "intro": "This privacy policy outlines how we handle the personal data collected through this website.",
+    "dataControllerData": {
+      "title": "Data Controller Information",
+      "name": "Name:",
+      "individual": "“The website is operated by a private individual.”",
+      "email": "E-mail:",
+      "webpage": "Website:"
+    },
+    "collectedData": {
+      "title": "Data Collected",
+      "ip": "IP address",
+      "browserData": "Browsing data (e.g., page visits, device type, approximate location)",
+      "important": "Important: Data is collected exclusively via Google Analytics, in an anonymous way."
+    },
+    "goalOfDataProcessing": {
+      "title": "Purpose of Data Processing",
+      "working": "Ensuring the website's functionality",
+      "statistics": "Generating website traffic statistics"
+    },
+    "dataForwarding": {
+      "title": "Data Transfer",
+      "content": "Google acts as a data processor. Data may be stored on servers outside the EU. Google complies with GDPR regulations."
+    },
+    "dataRetention": {
+      "title": "Data Retention",
+      "content": "Statistical data is retained for the default duration set by Google Analytics (e.g., 14 months). The data controller does not collect personally identifiable information."
+    },
+    "userRights": {
+      "title": "User Rights",
+      "content": "Users have the right to:",
+      "request": "request information about data processing,",
+      "denies": "object to data processing,",
+      "complain": "lodge a complaint with the Hungarian Data Protection Authority (https://naih.hu)"
+    }
+  },
+  "termsOfUse": {
+    "title": "Terms of Use",
+    "serviceDescription": {
+      "title": "Service Description",
+      "content": "Felvaltom.eu provides information about how to exchange banknotes and coins. The website is for informational purposes only and does not perform actual money exchange services."
+    },
+    "LimitationOfLiability": {
+      "title": "Limitation of Liability",
+      "content": "The operator is not responsible for the accuracy or completeness of the information or for any damages resulting from errors or interruptions."
+    },
+    "userObligations": {
+      "title": "User Obligations",
+      "content": "Users must use the website lawfully, must not disrupt its operation, and must not misuse the available information."
+    },
+    "intellectualProperty": {
+      "title": "Intellectual Property",
+      "content": "All texts, images, and other content on the website are protected by copyright and may only be used with the operator’s permission."
+    },
+    "changes": {
+      "title": "Changes",
+      "content": "The operator reserves the right to modify these terms of use. The current version is always available on the website."
+    }
+  },
+  "impressum": {
+    "title": "Impressum",
+    "operator": "Website operator:",
+    "individual": "The website is operated by a private individual.",
+    "email": "Contact e-mail:",
+    "webpage": "Website:",
+    "headquarters": "Registered address:",
+    "important": "This website is for informational purposes only and is not an official money exchange service."
+  }}

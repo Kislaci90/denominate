@@ -41,7 +41,7 @@ const ResultTableView: React.FC<Props> = ({
                                            className="result-table-header">{t('bills')}</TableCell>
                                 <TableCell colSpan={1} align="right"
                                            className="result-table-header">{t('quantity')}</TableCell>
-                                <TableCell colSpan={1} align="right" sx={{ display: { xs: 'none', sm: 'block' } }}
+                                <TableCell colSpan={1} align="right" sx={{ display: { xs: 'none', sm: 'table-cell' } }}
                                            className="result-table-header">{t('subResult')}</TableCell>
                             </TableRow>
                         )}
@@ -63,7 +63,7 @@ const ResultTableView: React.FC<Props> = ({
                                     {item.denomination.value} {selectedCurrency.symbol}
                                 </TableCell>
                                 <TableCell align="right" className="result-table-cell">{item.count}</TableCell>
-                                <TableCell align="right" className="result-table-cell" sx={{ display: { xs: 'none', sm: 'block' } }}>
+                                <TableCell align="right" className="result-table-cell" sx={{ display: { xs: 'none', sm: 'table-cell' } }}>
                                     {formatNumberByLanguage(i18n.language, item.denomination.value * item.count)} {selectedCurrency.symbol}
                                 </TableCell>
                             </TableRow>
@@ -74,7 +74,7 @@ const ResultTableView: React.FC<Props> = ({
                                            className="result-table-header">{t('coins')}</TableCell>
                                 <TableCell colSpan={1} align="right"
                                            className="result-table-header">{t('quantity')}</TableCell>
-                                <TableCell colSpan={1} align="right" sx={{ display: { xs: 'none', sm: 'block' } }}
+                                <TableCell colSpan={1} align="right" sx={{ display: { xs: 'none', sm: 'table-cell' } }}
                                            className="result-table-header">{t('subResult')}</TableCell>
                             </TableRow>
                         )}
@@ -96,7 +96,7 @@ const ResultTableView: React.FC<Props> = ({
                                     {item.denomination.value} {selectedCurrency.symbol}
                                 </TableCell>
                                 <TableCell align="right" className="result-table-cell">{item.count}</TableCell>
-                                <TableCell align="right" className="result-table-cell" sx={{ display: { xs: 'none', sm: 'block' } }}>
+                                <TableCell align="right" className="result-table-cell" sx={{ display: { xs: 'none', sm: 'table-cell' } }}>
                                     {formatNumberByLanguage(i18n.language, item.denomination.value * item.count)} {selectedCurrency.symbol}
                                 </TableCell>
                             </TableRow>

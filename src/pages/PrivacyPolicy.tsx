@@ -3,12 +3,18 @@ import {Box, Divider, List, ListItem, Paper, Typography} from "@mui/material";
 import {theme} from "../utils/theme";
 import {useTranslation} from "react-i18next";
 import { LockPerson } from "@mui/icons-material";
+import {Helmet} from "react-helmet-async";
 
 const PrivacyPolicy: React.FC = () => {
     const {t} = useTranslation();
 
     return (
     <Box sx={{display: "flex", justifyContent: "center", alignItems: "flex-start", pt: 6}}>
+        <Helmet>
+            <title>{`${t('privacyPolicy.title')} | Felváltom!`}</title>
+            <meta name="description" content={t('privacyPolicy.metaDescription')}/>
+            <link rel="canonical" href="https://felvaltom.eu/privacy-policy"/>
+        </Helmet>
         <Paper elevation={1} sx={{
             p: {xs: 3, sm: 5},
             maxWidth: 800,
@@ -18,7 +24,7 @@ const PrivacyPolicy: React.FC = () => {
             border: "1px solid",
             borderColor: "divider",
         }}>
-            <Typography variant="h4" color={theme.palette.primary.main} gutterBottom>
+            <Typography variant="h4" component="h1" color={theme.palette.primary.main} gutterBottom>
                 <LockPerson  fontSize="large"></LockPerson> {t('privacyPolicy.title')}
             </Typography>
             <strong>{t('privacyPolicy.title')} - felvaltom.eu</strong>
@@ -33,7 +39,7 @@ const PrivacyPolicy: React.FC = () => {
 
             <Divider sx={{mb: 3}}/>
 
-            <Typography variant="h5" color={theme.palette.primary.main} gutterBottom>
+            <Typography variant="h5" component="h2" color={theme.palette.primary.main} gutterBottom>
                 {t('privacyPolicy.dataControllerData.title')}
             </Typography>
             <Typography variant="body1" gutterBottom sx={{ mb: 2 }}>
@@ -47,7 +53,7 @@ const PrivacyPolicy: React.FC = () => {
                 </List>
             </Typography>
 
-            <Typography variant="h5" color={theme.palette.primary.main} gutterBottom>
+            <Typography variant="h5" component="h2" color={theme.palette.primary.main} gutterBottom>
                 {t('privacyPolicy.collectedData.title')}
             </Typography>
             <Typography variant="body1" gutterBottom sx={{ mb: 2 }}>
@@ -61,7 +67,7 @@ const PrivacyPolicy: React.FC = () => {
                 {t('privacyPolicy.collectedData.important')}
             </Typography>
 
-            <Typography variant="h5" color={theme.palette.primary.main} gutterBottom>
+            <Typography variant="h5" component="h2" color={theme.palette.primary.main} gutterBottom>
                 {t('privacyPolicy.goalOfDataProcessing.title')}
             </Typography>
             <Typography variant="body1" gutterBottom sx={{ mb: 2 }}>
@@ -74,21 +80,21 @@ const PrivacyPolicy: React.FC = () => {
                 </List>
             </Typography>
 
-            <Typography variant="h5" color={theme.palette.primary.main} gutterBottom>
+            <Typography variant="h5" component="h2" color={theme.palette.primary.main} gutterBottom>
                 {t('privacyPolicy.dataForwarding.title')}
             </Typography>
             <Typography variant="body1" gutterBottom sx={{ mb: 2 }}>
                 {t('privacyPolicy.dataForwarding.content')}
             </Typography>
 
-            <Typography variant="h5" color={theme.palette.primary.main} gutterBottom>
+            <Typography variant="h5" component="h2" color={theme.palette.primary.main} gutterBottom>
                 {t('privacyPolicy.dataRetention.title')}
             </Typography>
             <Typography variant="body1" gutterBottom sx={{ mb: 2 }}>
                 {t('privacyPolicy.dataRetention.content')}
             </Typography>
 
-            <Typography variant="h5" color={theme.palette.primary.main} gutterBottom>
+            <Typography variant="h5" component="h2" color={theme.palette.primary.main} gutterBottom>
                 {t('privacyPolicy.userRights.title')}
             </Typography>
             <Typography variant="body1" gutterBottom sx={{ mb: 2 }}>

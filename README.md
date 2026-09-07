@@ -1,69 +1,67 @@
-# React + TypeScript + Vite
+# Felváltom!
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**[felvaltom.eu](https://felvaltom.eu)** — a small calculator that breaks a cash amount down into the exact banknotes and coins you'd need to hand over: type in an amount, pick a currency, and get a denomination-by-denomination breakdown.
 
-Currently, two official plugins are available:
+Supports **HUF**, **EUR**, and **USD**, with the interface available in **Hungarian**, **English**, and **German**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## What it does
 
-## Expanding the ESLint configuration
+- Enter an amount and currency, get a breakdown of banknotes and coins (largest denomination first), plus the subtotal each denomination contributes.
+- Amount input formats live as you type, grouped per the active language's numeral convention (e.g. `100 000 000` in Hungarian, `100,000,000` in English, `100.000.000` in German).
+- Keeps a local history of recent lookups (stored in `localStorage`) that can be reloaded with one click.
+- Fully keyboard-operable, with visible focus states and a skip-to-content link.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Tech stack
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- [React 19](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/) on [Vite](https://vite.dev/)
+- [MUI](https://mui.com/) for components, with a custom theme (no default MUI styling)
+- [react-router-dom](https://reactrouter.com/) for client-side routing
+- [react-i18next](https://react.i18next.com/) + [i18next-http-backend](https://github.com/i18next/i18next-http-backend) for translations, loaded from `public/locales/{hu,en,de}/translation.json`
+- [react-helmet-async](https://github.com/staylor/react-helmet-async) for per-page `<title>`/meta tags
+- [react-ga4](https://github.com/codler/react-ga4) for analytics, gated behind cookie consent
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## Getting started
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The dev server prints a local URL (Vite picks an open port starting at 5173).
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Available scripts
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+| Script | What it does |
+| --- | --- |
+| `npm run dev` | Start the Vite dev server with HMR |
+| `npm run build` | Type-check, build for production, and copy `index.html` → `404.html` (so GitHub Pages serves the SPA for deep links like `/privacy-policy`) |
+| `npm run preview` | Serve the production build locally |
+| `npm run lint` | Run ESLint |
+| `npm run deploy` | Build, then publish `dist/` to GitHub Pages via `gh-pages` |
+
+## Project structure
+
 ```
+public/
+  locales/{hu,en,de}/translation.json   translation strings
+  manifest.json, robots.txt, sitemap.xml, og-image.png, ...
+src/
+  components/     UI building blocks (AmountInput, ResultTableView, HistoryList, ...)
+  pages/          routed pages (Home, PrivacyPolicy, CookiePolicy, TermsOfUse, Impressum)
+  logic/          pure calculation logic (denomination.ts, currencies.ts, history.ts)
+  utils/          theme, i18n setup, number-formatting helpers, analytics
+```
+
+The actual denomination math lives in `src/logic/denomination.ts` and has no UI dependencies — currencies and their banknote/coin tables are defined there.
+
+## Internationalization
+
+Adding a language means adding `public/locales/<code>/translation.json` (copy an existing one and translate the values) and registering it in `src/components/LanguageSelector.tsx`. `hu` is the fallback language (see `src/i18n.ts`); the visitor's browser language is detected automatically on first visit.
+
+## SEO
+
+Each route sets its own `<title>`, meta description, and canonical URL via `react-helmet-async` (see the `<Helmet>` block in each page component). `public/sitemap.xml`, `public/robots.txt`, and the JSON-LD block in `index.html` are static and should be kept in sync with the domain if it ever changes.
+
+## Deployment
+
+The site is a static SPA hosted on GitHub Pages under the custom domain in `public/CNAME` (`felvaltom.eu`). `npm run deploy` builds and pushes `dist/` via `gh-pages`; there's no CI pipeline, so deploys are manual.

@@ -27,10 +27,10 @@ const DenominateButton: React.FC<Props> = ({pendingAmountIsValid, handleDenomina
                         fontSize: '1.25rem',
                         height: 64,
                         mt: 1,
+                        transition: 'transform 0.2s ease, box-shadow 0.2s ease',
                         '&:hover': {
                             boxShadow: 4,
                             transform: 'translateY(-1px)',
-                            transition: 'all 0.2s ease'
                         },
                         '&:disabled': {
                             opacity: 0.6,
@@ -45,7 +45,7 @@ const DenominateButton: React.FC<Props> = ({pendingAmountIsValid, handleDenomina
                 </Button>
             </Box>
             <Typography
-                id="amount-helper-text"
+                id="denominate-helper-text"
                 variant="caption"
                 sx={{
                     color: 'text.secondary',

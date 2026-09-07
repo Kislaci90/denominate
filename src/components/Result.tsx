@@ -52,7 +52,7 @@ const ResultArea: React.FC<Props> = ({
                 <Box sx={{display: 'flex', alignItems: 'center', mb: 2, justifyContent: 'space-between'}}>
                     <Box sx={{display: 'flex', alignItems: 'center'}}>
                         <EmojiObjectsIcon color="primary" sx={{fontSize: 28, mr: 1}}/>
-                        <Typography variant="h5" fontWeight={700} sx={{letterSpacing: 0.5}}>
+                        <Typography variant="h5" component="h2" fontWeight={700} sx={{letterSpacing: 0.5}}>
                             {t('result')}
                         </Typography>
                     </Box>

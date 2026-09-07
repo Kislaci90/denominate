@@ -67,7 +67,7 @@ export function roundTo5or0(amount: number) {
         return amount;
     }
 
-    let remainder = amount % 10;
+    const remainder = amount % 10;
 
     if (remainder <= 2 || remainder >=5 && remainder <= 7) return amount - (remainder % 5);
 
@@ -75,7 +75,7 @@ export function roundTo5or0(amount: number) {
 }
 
 export function denominate(amount: number, currency: string): DenominateResult[] {
-    let denominations = getDenominationsForCurrency(currency);
+    const denominations = getDenominationsForCurrency(currency);
 
     let remaining = currency === 'EUR' || currency === 'USD' ? Math.round(amount * 100) : amount;
 

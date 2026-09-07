@@ -7,7 +7,7 @@ import {
     Container,
     Divider,
     List,
-    ListItem,
+    ListItemButton,
     ListItemIcon,
     ListItemText,
     ListSubheader,
@@ -42,7 +42,7 @@ const HistoryList: React.FC<Props> = ({
         <Container maxWidth="md" sx={{mt: 2}}>
             <Card elevation={8} className="history-card">
                 <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1}}>
-                    <ListSubheader component="div">
+                    <ListSubheader component="h2">
                         {t('history')}
                     </ListSubheader>
                     <Button size="small" color="secondary" variant="outlined" onClick={() => {
@@ -60,7 +60,7 @@ const HistoryList: React.FC<Props> = ({
                         <Tooltip
                             title={t('loadFromHistory', {amt: formatNumberByLanguage(i18n.language, Number(historyEntry.amount)), sym: historyEntry.currency.symbol})}
                             arrow key={index}>
-                            <ListItem
+                            <ListItemButton
                                 alignItems="flex-start"
                                 className="history-list-item"
                                 onClick={() => {
@@ -72,7 +72,6 @@ const HistoryList: React.FC<Props> = ({
                                         resultAreaRef?.current?.focus();
                                     }, 100);
                                 }}
-                                tabIndex={0}
                                 aria-label={t('loadFromHistory', {amt: formatNumberByLanguage(i18n.language, Number(historyEntry.amount)), sym: historyEntry.currency.symbol})}
                             >
                                 <ListItemIcon className="history-list-item-icon" sx={{minWidth: 36}}>
@@ -87,15 +86,15 @@ const HistoryList: React.FC<Props> = ({
                                 <ListItemText
                                     className="history-list-item-text"
                                     primary={<>
-                                        <b>{formatNumberByLanguage(i18n.language, Number(historyEntry.amount))} {historyEntry.currency.symbol}</b>
+                                        <b className="history-amount">{formatNumberByLanguage(i18n.language, Number(historyEntry.amount))} {historyEntry.currency.symbol}</b>
                                         <span>({new Date(historyEntry.time).toLocaleString()})</span>
                                     </>}
 
                                     secondary={historyEntry.denominationResult && historyEntry.denominationResult.length > 0 ? (
                                         <span>{showHistoryEntriesAsList(historyEntry)}</span>
-                                    ) : <span>{t('noBreakDown')}</span>}
+                                    ) : <span>{t('noBreakdown')}</span>}
                                 />
-                            </ListItem>
+                            </ListItemButton>
                         </Tooltip>
                     ))}
                 </List>

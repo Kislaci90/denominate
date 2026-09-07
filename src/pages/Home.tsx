@@ -16,25 +16,19 @@ import TermsOfUse from "./TermsOfUse";
 import Impressum from "./Impressum";
 import {theme} from "../utils/theme";
 import {useTranslation} from "react-i18next";
+import {Helmet} from "react-helmet-async";
 
 function MainCalculator() {
     const [amount, setAmount] = useState(0);
-    const [pendingAmount, setPendingAmount] = useState("0");
-    const [isValidPendingAmount, setIsValidPendingAmount] = useState(true);
+    const [pendingAmount, setPendingAmount] = useState("");
     const [currency, setCurrency] = useState('HUF');
     const [history, setHistory] = useState<HistoryEntry[]>([]);
-    const {t, i18n} = useTranslation();
+    const {t} = useTranslation();
     const amountInputRef = useRef<HTMLInputElement>(null);
     const resultAreaRef = useRef<HTMLDivElement>(null);
 
-    function handleAmountChange(e: React.ChangeEvent<HTMLInputElement>) {
-        const regex = /^\d+(?:[.,]\d+)?$/;
-        setIsValidPendingAmount(regex.test(e.target.value))
-        setPendingAmount(e.target.value.replace(/[^0-9.,]/g, ''));
-    }
-
     function handleDenominate() {
-        setAmount(roundTo5or0(parseFloat(pendingAmount.replace(',', '.'))))
+        setAmount(roundTo5or0(parseFloat(pendingAmount)))
         amountInputRef.current?.select();
     }
 
@@ -44,7 +38,7 @@ function MainCalculator() {
         }
     }
 
-    const isValid = pendingAmount !== '' && !isNaN(Number(pendingAmount.replace(',', '.'))) && Number(pendingAmount.replace(',', '.')) > 0;
+    const isValid = pendingAmount !== '' && !isNaN(Number(pendingAmount)) && Number(pendingAmount) > 0;
 
     const denominateResults: DenominateResult[] = useMemo(() => {
         if (isValid) {
@@ -54,8 +48,6 @@ function MainCalculator() {
     }, [isValid, amount, currency]);
 
     useEffect(() => {
-        i18n.changeLanguage('hu');
-
         const stored = localStorage.getItem('denomination_history');
         if (stored) {
             try {
@@ -64,7 +56,7 @@ function MainCalculator() {
             } catch { /* empty */
             }
         }
-    }, [i18n]);
+    }, []);
 
     const selectedCurrency = currencies.find(c => c.code === currency) ?? currencies[0];
 
@@ -86,23 +78,30 @@ function MainCalculator() {
 
     return (
         <>
+            <Helmet>
+                <title>{t('seoTitle')}</title>
+                <meta name="description" content={t('seoDescription')}/>
+                <link rel="canonical" href="https://felvaltom.eu/"/>
+            </Helmet>
             <div className="landing-hero fade-in">
 
-                <Box display="flex" alignItems="center" justifyContent="space-between" sx={{mb: 4}}>
-                    {/*<Logo width={60} height={60}/>*/}
+                <Typography component="p" className="hero-eyebrow">
+                    {t('heroEyebrow')}
+                </Typography>
 
+                <Box display="flex" alignItems="center" justifyContent="space-between" sx={{mb: 3}}>
                     <Typography color={theme.palette.primary.main} variant="h2" component="h1" align="center">
                         {t('heroTitle')}
                     </Typography>
                 </Box>
 
                 <Box className="landing-feature" sx={{display: {xs: 'none', sm: 'block'}}}>
-                    <Typography color="#666">
+                    <Typography className="hero-subtitle">
                         {t('heroSubtitle')}
                     </Typography>
                 </Box>
 
-                <Box sx={{
+                <Box className="counter-panel" sx={{
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
@@ -110,18 +109,16 @@ function MainCalculator() {
                     width: '100%',
                     maxWidth: {xs: 300, sm: 400, md: 600},
                     mx: 'auto',
-                    px: 2
                 }}>
                     <CurrencySelector currency={currency} onChange={setCurrency}/>
 
                     <AmountInput
                         value={pendingAmount}
-                        isValid={isValidPendingAmount}
-                        onAmountChange={handleAmountChange}
+                        onAmountChange={setPendingAmount}
                         onKeyDown={handleInputKeyDown}
                         onClear={() => {
                             setAmount(0)
-                            setPendingAmount("0");
+                            setPendingAmount("");
                         }}
                         inputRef={amountInputRef}
                     />
@@ -141,14 +138,16 @@ function MainCalculator() {
                 ref={resultAreaRef}
             />
 
-            <HistoryList
-                history={history}
-                setHistory={setHistory}
-                setPendingAmount={setPendingAmount}
-                setAmount={setAmount}
-                setCurrency={setCurrency}
-                resultAreaRef={resultAreaRef}
-            />
+            {history.length > 0 && (
+                <HistoryList
+                    history={history}
+                    setHistory={setHistory}
+                    setPendingAmount={setPendingAmount}
+                    setAmount={setAmount}
+                    setCurrency={setCurrency}
+                    resultAreaRef={resultAreaRef}
+                />
+            )}
         </>
     );
 }

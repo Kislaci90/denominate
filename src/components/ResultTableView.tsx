@@ -21,21 +21,21 @@ const ResultTableView: React.FC<Props> = ({
 
     const {i18n, t} = useTranslation();
 
+    const bills = denominationResult.filter(item => !item.denomination.isCoin);
+    const coins = denominationResult.filter(item => item.denomination.isCoin);
+
     return (
         <>
-            <Box className={"result-area-summary"}>
-
-            </Box>
             <div className="result-area-summary">
             <span
                 className="result-amount-value">{formatNumberByLanguage(i18n.language, amount)} {selectedCurrency.symbol}</span> {t('resultSummary')}
             </div>
             <div className="result-area-divider"/>
             <TableContainer component={Paper}
-                            sx={{borderRadius: 3, boxShadow: 0, mb: 2, overflow: 'hidden'}}>
+                            sx={{borderRadius: 2, boxShadow: 0, mb: 2, overflow: 'hidden'}}>
                 <Table size="medium" aria-label="denomination table">
                     <TableBody>
-                        {denominationResult.filter(item => !item.denomination.isCoin).length > 0 && (
+                        {bills.length > 0 && (
                             <TableRow>
                                 <TableCell colSpan={1}
                                            className="result-table-header">{t('bills')}</TableCell>
@@ -45,30 +45,25 @@ const ResultTableView: React.FC<Props> = ({
                                            className="result-table-header">{t('subResult')}</TableCell>
                             </TableRow>
                         )}
-                        {denominationResult.filter(item => !item.denomination.isCoin).map((item) => (
-                            <TableRow key={`bill-table-${item.denomination.value}`} className="result-table-row">
+                        {bills.map((item, idx) => (
+                            <TableRow key={`bill-table-${item.denomination.value}`} className="result-table-row"
+                                      style={{animationDelay: `${idx * 60}ms`}}>
                                 <TableCell component="th" scope="row">
-                                    <BillIcon
-                                        value={item.denomination.value}
-                                        color={item.denomination.color}
-                                        width={40}
-                                        height={25}
-                                        style={{
-                                            verticalAlign: 'middle',
-                                            marginRight: 8,
-                                            borderRadius: 6,
-                                            background: '#fff'
-                                        }}
-                                    />
-                                    {item.denomination.value} {selectedCurrency.symbol}
+                                    <Box sx={{display: 'flex', alignItems: 'center', gap: 1.25}}>
+                                        <BillIcon
+                                            value={item.denomination.value}
+                                            color={item.denomination.color}
+                                        />
+                                        <span>{item.denomination.value} {selectedCurrency.symbol}</span>
+                                    </Box>
                                 </TableCell>
-                                <TableCell align="right" className="result-table-cell">{item.count}</TableCell>
-                                <TableCell align="right" className="result-table-cell" sx={{ display: { xs: 'none', sm: 'table-cell' } }}>
+                                <TableCell align="right" className="result-table-cell result-table-number">{item.count}</TableCell>
+                                <TableCell align="right" className="result-table-cell result-table-number" sx={{ display: { xs: 'none', sm: 'table-cell' } }}>
                                     {formatNumberByLanguage(i18n.language, item.denomination.value * item.count)} {selectedCurrency.symbol}
                                 </TableCell>
                             </TableRow>
                         ))}
-                        {denominationResult.filter(item => item.denomination.isCoin).length > 0 && (
+                        {coins.length > 0 && (
                             <TableRow>
                                 <TableCell colSpan={1}
                                            className="result-table-header">{t('coins')}</TableCell>
@@ -78,25 +73,20 @@ const ResultTableView: React.FC<Props> = ({
                                            className="result-table-header">{t('subResult')}</TableCell>
                             </TableRow>
                         )}
-                        {denominationResult.filter(item => item.denomination.isCoin).map((item) => (
-                            <TableRow key={`coin-table-${item.denomination.value}`} className="result-table-row">
+                        {coins.map((item, idx) => (
+                            <TableRow key={`coin-table-${item.denomination.value}`} className="result-table-row"
+                                      style={{animationDelay: `${(bills.length + idx) * 60}ms`}}>
                                 <TableCell component="th" scope="row">
-                                    <CoinIcon
-                                        value={item.denomination.value}
-                                        color={item.denomination.color}
-                                        width={24}
-                                        height={24}
-                                        style={{
-                                            verticalAlign: 'middle',
-                                            marginRight: 8,
-                                            borderRadius: 6,
-                                            background: '#fff'
-                                        }}
-                                    />
-                                    {item.denomination.value} {selectedCurrency.symbol}
+                                    <Box sx={{display: 'flex', alignItems: 'center', gap: 1.25}}>
+                                        <CoinIcon
+                                            value={item.denomination.value}
+                                            color={item.denomination.color}
+                                        />
+                                        <span>{item.denomination.value} {selectedCurrency.symbol}</span>
+                                    </Box>
                                 </TableCell>
-                                <TableCell align="right" className="result-table-cell">{item.count}</TableCell>
-                                <TableCell align="right" className="result-table-cell" sx={{ display: { xs: 'none', sm: 'table-cell' } }}>
+                                <TableCell align="right" className="result-table-cell result-table-number">{item.count}</TableCell>
+                                <TableCell align="right" className="result-table-cell result-table-number" sx={{ display: { xs: 'none', sm: 'table-cell' } }}>
                                     {formatNumberByLanguage(i18n.language, item.denomination.value * item.count)} {selectedCurrency.symbol}
                                 </TableCell>
                             </TableRow>

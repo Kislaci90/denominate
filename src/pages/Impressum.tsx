@@ -3,12 +3,18 @@ import {Box, Divider, List, ListItem, Paper, Typography} from "@mui/material";
 import {theme} from "../utils/theme";
 import {useTranslation} from "react-i18next";
 import { Business } from "@mui/icons-material";
+import {Helmet} from "react-helmet-async";
 
 const Impressum: React.FC = () => {
     const {t} = useTranslation();
 
     return (
         <Box sx={{display: "flex", justifyContent: "center", alignItems: "flex-start", pt: 6}}>
+            <Helmet>
+                <title>{`${t('impressum.title')} | Felváltom!`}</title>
+                <meta name="description" content={t('impressum.metaDescription')}/>
+                <link rel="canonical" href="https://felvaltom.eu/impressum"/>
+            </Helmet>
             <Paper
                 elevation={1}
                 sx={{
@@ -20,7 +26,7 @@ const Impressum: React.FC = () => {
                     border: "1px solid",
                     borderColor: "divider",
                 }}>
-                <Typography variant="h4" color={theme.palette.primary.main} gutterBottom>
+                <Typography variant="h4" component="h1" color={theme.palette.primary.main} gutterBottom>
                     <Business fontSize="large"></Business> {t('impressum.title')}
                 </Typography>
                 <strong>{t('impressum.title')} - felvaltom.eu</strong>

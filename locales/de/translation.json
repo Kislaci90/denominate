@@ -1,4 +1,8 @@
 {
+  "skipToContent": "Zum Inhalt springen",
+  "heroEyebrow": "Banknoten- & Münzrechner",
+  "seoTitle": "Felváltom! – Banknoten- & Münzrechner",
+  "seoDescription": "Gib einen Betrag ein, und Felváltom! zeigt dir genau, wie viele Geldscheine und Münzen du brauchst. Kostenloser Bargeldrechner für HUF, EUR und USD.",
   "heroTitle": "Felváltom!",
   "heroSubtitle": "Gib den Betrag ein, und wir sagen dir, wie viele Geldscheine und Münzen du brauchst! Felvaltom! ist eine schnelle und praktische Lösung für den Umgang mit Bargeld – oder einfach nur aus Neugier.",
   "currencySelectLabel": "Währung",
@@ -28,6 +32,7 @@
   },
   "cookiePolicy": {
     "title": "Cookie-Richtlinie",
+    "metaDescription": "Welche Cookies Felváltom! verwendet und wie du sie in deinem Browser verwalten kannst.",
     "intro": "Diese Website verwendet Cookies, um die Benutzererfahrung zu verbessern und anonyme Statistiken zu sammeln.",
     "whatAreCookies": {
       "title": "Was sind Cookies?",
@@ -49,6 +54,7 @@
   },
   "privacyPolicy": {
     "title": "Datenschutzerklärung",
+    "metaDescription": "Erfahre, wie Felváltom! die über diese Website erhobenen personenbezogenen Daten verarbeitet.",
     "intro": "Diese Datenschutzerklärung erläutert, wie wir personenbezogene Daten verarbeiten, die über diese Website erhoben werden.",
     "dataControllerData": {
       "title": "Verantwortlicher",
@@ -86,6 +92,7 @@
   },
   "termsOfUse": {
     "title": "Nutzungsbedingungen",
+    "metaDescription": "Die Nutzungsbedingungen für den Felváltom!-Rechner.",
     "serviceDescription": {
       "title": "Beschreibung des Dienstes",
       "content": "Felvaltom.eu bietet Informationen zum Umtausch von Banknoten und Münzen. Die Website dient ausschließlich Informationszwecken und bietet keinen tatsächlichen Geldwechselservice an."
@@ -109,6 +116,7 @@
   },
   "impressum": {
     "title": "Impressum",
+    "metaDescription": "Betreiberangaben und Kontaktinformationen der Felváltom!-Website.",
     "operator": "Website-Betreiber:",
     "individual": "Die Website wird von einer Privatperson betrieben.",
     "email": "Kontakt-E-Mail:",

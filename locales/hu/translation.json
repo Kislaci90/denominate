@@ -1,4 +1,8 @@
 {
+  "skipToContent": "Ugrás a tartalomra",
+  "heroEyebrow": "Bankjegy- és érmekalkulátor",
+  "seoTitle": "Felváltom! – Bankjegy- és érmekalkulátor",
+  "seoDescription": "Add meg az összeget, és a Felváltom! megmondja, hány darab bankjegyre és érmére van szükséged. Ingyenes pénzváltó kalkulátor forinthoz, euróhoz és dollárhoz.",
   "heroTitle": "Felváltom!",
   "heroSubtitle": "Add meg az összeget, mi pedig megmondjuk, mennyi bankjegyre és érmére van szükséged! A Felvaltom! gyors, praktikus megoldás készpénzkezeléshez vagy csak kíváncsiságból.",
   "currencySelectLabel": "Pénznem",
@@ -28,6 +32,7 @@
   },
   "cookiePolicy": {
     "title": "Süti szabályzat",
+    "metaDescription": "Milyen sütiket használ a Felváltom!, és hogyan kezelheti azokat böngészőjében.",
     "intro": "Ez a weboldal sütiket (cookie-kat) használ annak érdekében, hogy javítsa a felhasználói élményt és anonim statisztikákat gyűjtsön.",
     "whatAreCookies": {
       "title": "Mik azok a sütik?",
@@ -49,6 +54,7 @@
   },
   "privacyPolicy": {
     "title": "Adatvédelmi szabályzat",
+    "metaDescription": "Tudja meg, hogyan kezeli a Felváltom! a weboldalon keresztül gyűjtött személyes adatokat.",
     "intro": "Ez az adatvédelmi szabályzat bemutatja, hogyan kezeljük a weboldalon keresztül gyűjtött személyes adatokat.",
     "dataControllerData": {
       "title": "Adatkezelő adatai",
@@ -86,6 +92,7 @@
   },
   "termsOfUse": {
     "title": "Felhasználási feltételek",
+    "metaDescription": "A Felváltom! kalkulátor használatának feltételei és a szolgáltatással kapcsolatos tudnivalók.",
     "serviceDescription": {
       "title": "Szolgáltatás leírása",
       "content": "A felvaltom.eu lehetőséget biztosít arra, hogy a látogatók információkat találjanak a pénz (bankjegyek és érmék) felváltásáról. Az oldal tájékoztató jellegű, tényleges pénzváltást nem végez."
@@ -109,6 +116,7 @@
   },
   "impressum": {
     "title": "Impresszum",
+    "metaDescription": "A Felváltom! weboldal üzemeltetőjének adatai és elérhetőségei.",
     "operator" : "Weboldal üzemeltetője:",
     "individual" : "A weboldalt magánszemély üzemelteti.",
     "email" : "Kapcsolattartó e-mail cím:",

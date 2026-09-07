@@ -1,11 +1,11 @@
 {
-  "short_name": "Felvaltom App",
-  "name": "Felvaltom Application",
-  "description": "A web application for denomination management",
+  "short_name": "Felváltom!",
+  "name": "Felváltom! – Bankjegy- és érmekalkulátor",
+  "description": "Ingyenes online kalkulátor, amely megadott összeget bankjegyekre és érmékre bont forint, euró és dollár pénznemben.",
   "version": "0.1.0",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "favicon_green.ico",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
@@ -20,8 +20,10 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#1F4B3A",
+  "background_color": "#F1E9D6",
+  "lang": "hu"
 }

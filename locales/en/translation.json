@@ -1,4 +1,8 @@
 {
+  "skipToContent": "Skip to content",
+  "heroEyebrow": "Banknote & Coin Calculator",
+  "seoTitle": "Felváltom! – Banknote & Coin Calculator",
+  "seoDescription": "Enter an amount and Felváltom! tells you exactly how many banknotes and coins you need. A free cash-breakdown calculator for HUF, EUR and USD.",
   "heroTitle": "Felváltom!",
   "heroSubtitle": "Enter the amount, and we’ll tell you how many banknotes and coins you need! Felvaltom! is a quick and practical solution for handling cash — or just for curiosity.",
   "currencySelectLabel": "Currency",
@@ -28,6 +32,7 @@
   },
   "cookiePolicy": {
     "title": "Cookie Policy",
+    "metaDescription": "Which cookies Felváltom! uses and how you can manage them in your browser.",
     "intro": "This website uses cookies to enhance the user experience and collect anonymous statistics.",
     "whatAreCookies": {
       "title": "What are cookies?",
@@ -49,6 +54,7 @@
   },
   "privacyPolicy": {
     "title": "Privacy Policy",
+    "metaDescription": "Learn how Felváltom! handles the personal data collected through this website.",
     "intro": "This privacy policy outlines how we handle the personal data collected through this website.",
     "dataControllerData": {
       "title": "Data Controller Information",
@@ -86,6 +92,7 @@
   },
   "termsOfUse": {
     "title": "Terms of Use",
+    "metaDescription": "The terms and conditions for using the Felváltom! calculator.",
     "serviceDescription": {
       "title": "Service Description",
       "content": "Felvaltom.eu provides information about how to exchange banknotes and coins. The website is for informational purposes only and does not perform actual money exchange services."
@@ -109,6 +116,7 @@
   },
   "impressum": {
     "title": "Impressum",
+    "metaDescription": "Operator details and contact information for the Felváltom! website.",
     "operator": "Website operator:",
     "individual": "The website is operated by a private individual.",
     "email": "Contact e-mail:",

@@ -1,40 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hu">
 <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="/favicon_green.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="apple-touch-icon" href="/favicon_green.ico" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+    <meta name="theme-color" content="#1F4B3A" />
+    <meta name="robots" content="index, follow" />
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
+    <!-- title/description/canonical are rendered per-route by react-helmet-async
+         (see each page component) - not duplicated here since Helmet can only add
+         tags, not remove these, in a client-only (non-SSR) app. -->
     <title>Felváltom!</title>
-  <script type="module" crossorigin src="/assets/index-B-dFGfyd.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-Ngz-4BAf.css">
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Felváltom!" />
+    <meta property="og:title" content="Felváltom! – Bankjegy- és érmekalkulátor" />
+    <meta property="og:description" content="Add meg az összeget, és megmondjuk, hány darab bankjegyre és érmére van szükséged. Ingyenes, gyors pénzváltó kalkulátor HUF, EUR és USD pénznemekhez." />
+    <meta property="og:url" content="https://felvaltom.eu/" />
+    <meta property="og:image" content="https://felvaltom.eu/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="hu_HU" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:locale:alternate" content="de_DE" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Felváltom! – Bankjegy- és érmekalkulátor" />
+    <meta name="twitter:description" content="Add meg az összeget, és megmondjuk, hány darab bankjegyre és érmére van szükséged." />
+    <meta name="twitter:image" content="https://felvaltom.eu/og-image.png" />
+
+    <link rel="icon" href="/favicon_green.ico" />
+    <link rel="apple-touch-icon" href="/logo192.png" />
+    <link rel="manifest" href="/manifest.json" />
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Felváltom!",
+        "url": "https://felvaltom.eu/",
+        "description": "Ingyenes online kalkulátor, amely megadott összeget bankjegyekre és érmékre bont forint, euró és dollár pénznemben.",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "Any",
+        "inLanguage": ["hu", "en", "de"],
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "EUR"
+        }
+    }
+    </script>
+  <script type="module" crossorigin src="/assets/index-eYFhurWL.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-C_zdrFNY.css">
 </head>
 <body>
 <noscript>You need to enable JavaScript to run this app.</noscript>
 <div id="root"></div>
-<!--
-  This HTML file is a template.
-  If you open it directly in the browser, you will see an empty page.
-
-  You can add webfonts, meta tags, or analytics to this file.
-  The build step will place the bundled scripts into the <body> tag.
-
-  To begin the development, run `npm start` or `yarn start`.
-  To create a production bundle, use `npm run build` or `yarn build`.
--->
 </body>
 </html>

@@ -1,5 +1,6 @@
 {
   "skipToContent": "Ugrás a tartalomra",
+  "lastUpdated": "Utolsó frissítés: 2025. augusztus",
   "heroEyebrow": "Bankjegy- és érmekalkulátor",
   "seoTitle": "Felváltom! – Bankjegy- és érmekalkulátor",
   "seoDescription": "Add meg az összeget, és a Felváltom! megmondja, hány darab bankjegyre és érmére van szükséged. Ingyenes pénzváltó kalkulátor forinthoz, euróhoz és dollárhoz.",
@@ -67,7 +68,8 @@
       "title": "Gyűjtött adatok",
       "ip": "IP-cím",
       "browserData": "Böngészési adatok (pl. oldallátogatások, eszköz típusa, földrajzi hely közelítőleg)",
-      "important": "Fontos: Az adatgyűjtés kizárólag a Google Analytics rendszerén keresztül történik, anonim módon."
+      "localData": "A böngészőben helyileg tárolt adatok: a korábbi számítások előzményei (összeg, pénznem, időpont). Ezek kizárólag a látogató saját eszközén (localStorage) tárolódnak, nem kerülnek elküldésre vagy tárolásra a szolgáltató szerverén, és bármikor törölhetők az „Előzmények törlése” gombbal vagy a böngésző adatainak törlésével.",
+      "important": "Fontos: A szerver oldali adatgyűjtés kizárólag a Google Analytics rendszerén keresztül történik, anonim módon. A böngészőben helyben tárolt adatokhoz (pl. számítási előzmények) a szolgáltató nem fér hozzá."
     },
     "goalOfDataProcessing": {
       "title": "Adatkezelés célja",

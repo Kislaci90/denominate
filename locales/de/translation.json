@@ -1,5 +1,6 @@
 {
   "skipToContent": "Zum Inhalt springen",
+  "lastUpdated": "Zuletzt aktualisiert: August 2025",
   "heroEyebrow": "Banknoten- & Münzrechner",
   "seoTitle": "Felváltom! – Banknoten- & Münzrechner",
   "seoDescription": "Gib einen Betrag ein, und Felváltom! zeigt dir genau, wie viele Geldscheine und Münzen du brauchst. Kostenloser Bargeldrechner für HUF, EUR und USD.",
@@ -67,7 +68,8 @@
       "title": "Erhobene Daten",
       "ip": "IP-Adresse",
       "browserData": "Browserdaten (z. B. Seitenbesuche, Gerätetyp, ungefährer Standort)",
-      "important": "Wichtig: Die Datenerhebung erfolgt ausschließlich anonym über Google Analytics."
+      "localData": "Lokal auf dem Gerät des Nutzers gespeicherte Daten: der Verlauf der letzten Berechnungen (Betrag, Währung, Zeitpunkt). Diese werden ausschließlich im Browser (localStorage) gespeichert, niemals an den Server des Betreibers übermittelt oder dort gespeichert, und können jederzeit über die Schaltfläche „Verlauf löschen“ oder durch Löschen der Browserdaten entfernt werden.",
+      "important": "Wichtig: Die serverseitige Datenerhebung erfolgt ausschließlich anonym über Google Analytics. Der Betreiber hat keinen Zugriff auf Daten, die lokal im Browser des Nutzers gespeichert werden, wie z. B. den Berechnungsverlauf."
     },
     "goalOfDataProcessing": {
       "title": "Zweck der Datenverarbeitung",

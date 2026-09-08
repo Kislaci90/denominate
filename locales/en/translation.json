@@ -1,5 +1,6 @@
 {
   "skipToContent": "Skip to content",
+  "lastUpdated": "Last updated: August 2025",
   "heroEyebrow": "Banknote & Coin Calculator",
   "seoTitle": "Felváltom! – Banknote & Coin Calculator",
   "seoDescription": "Enter an amount and Felváltom! tells you exactly how many banknotes and coins you need. A free cash-breakdown calculator for HUF, EUR and USD.",
@@ -67,7 +68,8 @@
       "title": "Data Collected",
       "ip": "IP address",
       "browserData": "Browsing data (e.g., page visits, device type, approximate location)",
-      "important": "Important: Data is collected exclusively via Google Analytics, in an anonymous way."
+      "localData": "Data stored locally on the user's device: the history of recent calculations (amount, currency, timestamp). This is stored only in the browser (localStorage), is never sent to or stored on the operator's server, and can be deleted at any time using the \"Clear History\" button or by clearing browser data.",
+      "important": "Important: Data collection on our server happens exclusively via Google Analytics, in an anonymous way. The operator does not have access to data stored locally in the user's browser, such as the calculation history."
     },
     "goalOfDataProcessing": {
       "title": "Purpose of Data Processing",
